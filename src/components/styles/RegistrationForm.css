@@ -1,0 +1,26 @@
+.submit {
+  position: absolute;
+  height: 60px;
+  width: 130px;
+  border-radius: 20px;
+  background-color: lightblue;
+  position: absolute;
+  font-weight: 300;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  top: 75%;
+  left: 27%;
+}
+
+.registration-modal {
+  position: absolute;
+  top: 20vh;
+  left: calc(50% - 10rem);
+  width: 18rem;
+  height: 23rem;
+  background-color: aliceblue;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  animation: slide-down 300ms ease-out forwards;
+}

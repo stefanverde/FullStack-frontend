@@ -1,0 +1,54 @@
+.header .button {
+  position: inherit;
+  height: 40px;
+  left: 90%;
+  width: 90px;
+  border-radius: 20px;
+  background-color: lightblue;
+  position: absolute;
+  font-weight: 300;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  top: 2%;
+}
+
+.header .button:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .header .button {
+    left: 80%;
+  }
+  .header .logout-button {
+    left: 60%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header .button {
+    left: 65%;
+  }
+  .header .logout-button {
+    left: 40%;
+  }
+}
+
+.header .logout-button {
+  position: inherit;
+  height: 40px;
+  width: 90px;
+  border-radius: 20px;
+  background-color: lightblue;
+  position: absolute;
+  left: 80%;
+  font-weight: 300;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  top: 2%;
+}
+
+.header .message {
+  position: absolute;
+  color: black;
+}

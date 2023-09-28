@@ -1,0 +1,81 @@
+.backimage {
+  height: 700px;
+  background-image: linear-gradient(
+      to right,
+      rgba(173, 216, 230, 0.5),
+      rgba(0, 0, 139, 0.7)
+    ),
+    url('./mountainheader.jpeg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.modal {
+  position: absolute;
+  top: 20vh;
+  left: calc(50% - 10rem);
+  width: 18rem;
+  height: 10rem;
+  background-color: aliceblue;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  animation: slide-down 300ms ease-out forwards;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.username {
+  position: relative;
+  left: 20%;
+  height: 30px;
+  margin: 10px 0 0 0;
+}
+
+.password {
+  position: relative;
+  left: 20%;
+  display: block;
+  height: 30px;
+  margin: 10px 0 10px 0;
+}
+
+.credentialsLogin {
+  position: relative;
+  left: 20%;
+  height: 30px;
+  width: 60px;
+  border-radius: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 250;
+  font-size: 18px;
+}
+
+.register {
+  position: relative;
+  left: 30%;
+  height: 30px;
+  width: 80px;
+  border-radius: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 250;
+  font-size: 18px;
+}
+
+.forgottenPassword {
+  position: inherit;
+  background-color: aliceblue;
+  border: none;
+  margin-top: 3rem;
+  left: 25%;
+}

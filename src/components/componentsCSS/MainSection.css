@@ -1,0 +1,20 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+/* .header{
+    background-color: lightblue;
+    height: 70px;
+    padding: 10px;
+    background-image: linear-gradient(to right, rgba(173, 216, 230, 1), rgba(0, 0, 139, 1)), url("/Users/stfv/Desktop/mountainheader.jpeg");
+    
+} */
+
+.mainSection{
+    height: 700px;
+    background-image: linear-gradient(to right, rgba(173, 216, 230, 0.5), rgba(0, 0, 139, 0.7)), url('../componentsPics/mountainheader.jpeg');
+    background-size: cover;
+    background-position: bottom;
+}

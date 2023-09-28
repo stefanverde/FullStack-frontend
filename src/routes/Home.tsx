@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router';
 import '../components/styles/Home.css';
-const Home = () => {
+import React from 'react';
+
+const Home: React.FC = () => {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/login');

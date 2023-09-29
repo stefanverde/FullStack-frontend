@@ -1,16 +1,18 @@
-import './styles/LoginModal.css';
-import './styles/RegistrationForm.css';
+import React from 'react';
+import '../GlobalCSS/Global.css';
+import './componentsStyles/RegistrationForm.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 function RegistrationForm() {
-  const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [email, setEmail] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [repeatPasswordError, setRepeatPasswordError] = useState('');
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: { target: { value: any } }) => {
     const newPassword = e.target.value;
     const containsNumber = /\d/.test(newPassword);
     const containsSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(
@@ -28,7 +30,7 @@ function RegistrationForm() {
     setPassword(newPassword);
   };
 
-  const handleRepeatPasswordChange = (e) => {
+  const handleRepeatPasswordChange = (e: { target: { value: any } }) => {
     const newRepeatPassword = e.target.value;
     setRepeatPassword(newRepeatPassword);
 
@@ -39,6 +41,32 @@ function RegistrationForm() {
     }
   };
 
+  //{ firstName } firstname = Ana
+  // firstName Ana
+  //{firstname} => {firstname: Ana}
+
+  //firstName
+
+  const submitForm = async () => {
+    const myData = {
+      firstName,
+      lastName,
+      password,
+      email,
+    };
+
+    console.log('myData', myData);
+
+    const result = await fetch('http://localhost:3001/v1/users/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(myData),
+    });
+    const json = await result.json();
+    console.log(json);
+  };
   return (
     <div className='backimage'>
       <div className='registration-modal'>
@@ -46,15 +74,15 @@ function RegistrationForm() {
           className='username'
           type='text'
           placeholder='First Name'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
         />
         <input
           className='username'
           type='text'
           placeholder='Last Name'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
         />
         <input
           className='username'
@@ -78,19 +106,37 @@ function RegistrationForm() {
           onChange={handleRepeatPasswordChange}
         />
 
-        <button className='submit'>
+        <button
+          className='submit'
+          onClick={submitForm}>
           <Link
             to='/'
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
+            style={{
+              textDecoration: 'none',
+              color: 'black',
+            }}>
             Submit Registration
           </Link>
         </button>
-        {passwordError && <div>{passwordError}</div>}
+        <button
+          className='toMain'
+          onClick={submitForm}>
+          <Link
+            to='/'
+            style={{
+              textDecoration: 'none',
+              color: 'black',
+            }}>
+            Back to Login. &rarr;
+          </Link>
+        </button>
+        {passwordError && <div style = {{ color:"red"}}>{passwordError}</div>}
       </div>
     </div>
   );
 }
 export default RegistrationForm;
-//change to form fields/ with the onsubmit button?
-//only if submit registration successful -> link to main page "/"
+//if submit registration successful -> send message "successful registration", redirect in 3 seconds/or you can go back to main page to login
+//if submit registration !successful -> error message.
+
+//The "required" attribute only works on form submit and since your input has no form the browser does not know what to validate on submit.

@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import '../components/styles/LoginModal.css';
-import '../components/styles/Login.css';
+import './routesStyles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const fetchRequest = async (input, init) => {
+  const fetchRequest = async (
+    input: RequestInfo | URL,
+    init: RequestInit | undefined
+  ) => {
     const response = await fetch(input, {
       headers: {
         'Content-Type': 'application/json',
@@ -27,8 +29,12 @@ function Login() {
   };
 
   const loginHandler = async () => {
-    if (username.trim() === '' || password.length <= 6) {
-      setError('Input Username or Password is not valid. ');
+    if (username.trim() === '' || password.trim() === '') {
+      setError("Login fields can't be empty.");
+      return;
+    }
+    if (!username || !password) {
+      setError('Incorrect login details ');
       return;
     }
     setError('');
@@ -43,7 +49,6 @@ function Login() {
           method: 'POST',
         }
       );
-      setIsLoggedIn(true);
       localStorage.setItem('authToken', response.access_token);
       navigate('/', { replace: true });
     } catch (e) {
@@ -57,7 +62,7 @@ function Login() {
         <input
           className='username'
           type='text'
-          placeholder='Username'
+          placeholder='Email'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -68,18 +73,16 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
         <button
           className='credentialsLogin'
-          onClick={loginHandler}
-        >
+          onClick={loginHandler}>
           Login
         </button>
         <button className='register'>
           <Link
             to='/register'
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
+            style={{ textDecoration: 'none', color: 'black' }}>
             Register
           </Link>
         </button>

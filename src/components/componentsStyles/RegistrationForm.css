@@ -4,12 +4,24 @@
   width: 130px;
   border-radius: 20px;
   background-color: lightblue;
-  position: absolute;
   font-weight: 300;
   font-size: 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  top: 75%;
+  top: 71%;
   left: 27%;
+}
+
+.toMain {
+  position: absolute;
+  height: 30px;
+  width: 200px;
+  border: none;
+  background-color: aliceblue;
+  font-weight: 300;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  top: 90%;
+  left: 35%;
 }
 
 .registration-modal {
@@ -17,7 +29,7 @@
   top: 20vh;
   left: calc(50% - 10rem);
   width: 18rem;
-  height: 23rem;
+  height: 24rem;
   background-color: aliceblue;
   padding: 1rem;
   border-radius: 14px;

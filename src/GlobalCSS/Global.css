@@ -1,0 +1,12 @@
+.backimage {
+    height: 700px;
+    background-image: linear-gradient(
+        to right,
+        rgba(173, 216, 230, 0.5),
+        rgba(0, 0, 139, 0.7)
+      ),
+      url('./mountainheader.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }

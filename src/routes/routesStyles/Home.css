@@ -3,3 +3,17 @@
   width: 100vw;
   background: red;
 }
+
+.dashboard{
+  position: absolute;
+    width: 20vw;
+    height: 95vh;
+    background-color: aliceblue;
+    padding: 1rem;
+    /* border-radius: 14px; */
+}
+
+.dashboardLogout{
+  position: absolute;
+  left:75%;
+}

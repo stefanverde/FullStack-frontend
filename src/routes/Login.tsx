@@ -33,11 +33,11 @@ function Login() {
       setError("Login fields can't be empty.");
       return;
     }
-    if (!username || !password) {
-      setError('Incorrect login details ');
-      return;
-    }
-    setError('');
+    // if (!username || !password) {
+    //   setError('Incorrect login details ');
+    //   return;
+    // } this is wrong
+    //setError('');
     try {
       const response = await fetchRequest(
         'http://localhost:3001/v1/auth/login',

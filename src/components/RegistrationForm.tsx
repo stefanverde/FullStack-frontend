@@ -45,8 +45,7 @@ function RegistrationForm() {
   // firstName Ana
   //{firstname} => {firstname: Ana}
 
-  //firstName
-
+  
   const submitForm = async () => {
     const myData = {
       firstName,
@@ -107,10 +106,11 @@ function RegistrationForm() {
         />
 
         <button
+          
           className='submit'
           onClick={submitForm}>
           <Link
-            to='/'
+            to='/login'
             style={{
               textDecoration: 'none',
               color: 'black',
@@ -119,10 +119,9 @@ function RegistrationForm() {
           </Link>
         </button>
         <button
-          className='toMain'
-          onClick={submitForm}>
+          className='toMain'>
           <Link
-            to='/'
+            to='/login'
             style={{
               textDecoration: 'none',
               color: 'black',
@@ -130,7 +129,7 @@ function RegistrationForm() {
             Back to Login. &rarr;
           </Link>
         </button>
-        {passwordError && <div style = {{ color:"red"}}>{passwordError}</div>}
+        {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
       </div>
     </div>
   );

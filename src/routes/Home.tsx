@@ -12,8 +12,12 @@ const Home: React.FC = () => {
 
   return (
     <div className='backimage'>
-      <div>there will be a dashboard here</div>
-      <button onClick={handleLogout}>Logout</button>
+      <div className='dashboard'>
+      <button>Login information</button>
+      <button>Items</button>
+      
+      </div>
+      <button className="dashboardLogout" onClick={handleLogout}>Logout</button>
     </div>
   );
 };

@@ -4,7 +4,7 @@ const mailTransporter = createTransport({
   service: 'gmail',
   auth: {
     user: 'verdestefan87@gmail.com',
-    pass: 'rysc qsac igan zpvv',
+    pass: '', //deleted pass
   },
 });
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import Login from './routes/Login';
 import Home from './routes/Home';
-import ForgottenPassword from './routes/ForgottenPassword';
+import ForgottenPassword from './components/ForgottenPassword';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RegistrationForm from './components/RegistrationForm';
+import ResetPassword from './components/ResetPassword';
 
 interface PrivateElementProps {
   element: React.ComponentType;
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     path: '/forgottenPassword',
     element: <ForgottenPassword />,
   },
+  {
+    path: "/resetPassword",
+    element: <ResetPassword/>
+  }
 ]);
 function App() {
   return <RouterProvider router={router} />;

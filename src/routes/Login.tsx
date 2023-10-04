@@ -53,6 +53,7 @@ function Login() {
       navigate('/', { replace: true });
     } catch (e) {
       console.log(e);
+    //verifica conditiile de login ca si username.trim. dupa ce indeplineste toate conditiile poti doar sa dai click, altfel ceva eroare
     }
   };
 
@@ -60,7 +61,7 @@ function Login() {
     <div className='backimage'>
       <div className='modal'>
         <input
-          className='username'
+          className='email'
           type='text'
           placeholder='Email'
           value={username}

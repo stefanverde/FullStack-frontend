@@ -36,3 +36,9 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   animation: slide-down 300ms ease-out forwards;
 }
+.username {
+  position: relative;
+  left: 20%;
+  height: 30px;
+  margin: 10px 0 0 0;
+}

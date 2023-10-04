@@ -1,19 +1,53 @@
-.home {
-  height: 100vh;
-  width: 100vw;
-  background: red;
+
+.items {
+  display: block;
+  position: relative;
+  top:2%;
+  height: 40px;
+  width: 120px;
+  border-radius: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 250;
+  font-size: 22px;
+  cursor: pointer;
+  margin-bottom: 2.5rem;
+}
+.itemsModal{
+  position: absolute;
+  top: 20vh;
+  left: calc(50% - 10rem);
+  width: 18rem;
+  height: 10rem;
+  background-color: aliceblue;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  animation: slide-down 300ms ease-out forwards;
+  background-image: linear-gradient(
+        to right,
+        rgba(173, 216, 230, 0.5),
+        rgba(0, 0, 139, 0.7)
+      )
 }
 
-.dashboard{
+.dashboardLogout {
   position: absolute;
-    width: 20vw;
-    height: 95vh;
-    background-color: aliceblue;
-    padding: 1rem;
-    /* border-radius: 14px; */
+  left: 80%;
+  top: 2%;
+  height: 40px;
+  width: 120px;
+  border-radius: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 250;
+  font-size: 22px;
+  cursor: pointer;
 }
 
-.dashboardLogout{
-  position: absolute;
-  left:75%;
+.block {
+  border-bottom: solid greenyellow 2px; 
+  width: fit-content;
+  margin-bottom: 12px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 250;
+  font-size: 16px;
 }

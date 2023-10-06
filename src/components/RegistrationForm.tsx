@@ -15,9 +15,7 @@ function RegistrationForm() {
   const handlePasswordChange = (e: { target: { value: any } }) => {
     const newPassword = e.target.value;
     const containsNumber = /\d/.test(newPassword);
-    const containsSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(
-      newPassword
-    );
+    const containsSpecialCharacter = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!containsNumber || !containsSpecialCharacter) {
       setPasswordError(
@@ -41,11 +39,6 @@ function RegistrationForm() {
     }
   };
 
-  //{ firstName } firstname = Ana
-  // firstName Ana
-  //{firstname} => {firstname: Ana}
-
-  
   const submitForm = async () => {
     const myData = {
       firstName,
@@ -106,7 +99,6 @@ function RegistrationForm() {
         />
 
         <button
-          
           className='submit'
           onClick={submitForm}>
           <Link
@@ -118,8 +110,7 @@ function RegistrationForm() {
             Submit Registration
           </Link>
         </button>
-        <button
-          className='toMain'>
+        <button className='toMain'> 
           <Link
             to='/login'
             style={{

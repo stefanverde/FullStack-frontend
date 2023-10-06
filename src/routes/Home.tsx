@@ -18,15 +18,11 @@ const Home: React.FC = () => {
       const decodedToken = jwtDecode<DecodedToken>(authToken);
 
       const { email, firstName, lastName } = decodedToken;
-      // console.log("email", email);
-      // console.log("fn", firstName);
-      // console.log("ln", lastName);
+      console.log(email, firstName, lastName);
     } catch (error) {
       console.log('error', error);
     }
   }
-
-  const[userData, setUserData] = useState<DecodedToken | null >(null);
 
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
@@ -52,10 +48,9 @@ const Home: React.FC = () => {
           <div className='block'> Id </div>
           <div className='block'> Name </div>
           <div className='block'> Family Name </div>
-          <div className='block'> Email {} </div>
+          <div className='block'> Email </div>
         </div>
       )}
-      <button className='items'>Items</button>
       <button
         className='button dashboardLogout'
         onClick={handleLogout}>

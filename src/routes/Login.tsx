@@ -88,7 +88,7 @@ function Login() {
           </Link>
         </button>
         <button className='forgottenPassword'>
-          <Link to='/forgottenPassword'>Forgotten Password ?</Link>
+          <Link to='/forgottenPassword'>Forgot Password ?</Link>
         </button>
       </div>
     </div>

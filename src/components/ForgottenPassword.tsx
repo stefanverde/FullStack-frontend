@@ -2,16 +2,34 @@ import React, { useState } from 'react';
 import '../routes/routesStyles/Login.css';
 import './componentsStyles/ForgottenPassword.css';
 import { Link } from 'react-router-dom';
+
 function ForgottenPassword() {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  function responseHandler() {
-    setResponse(false);
-    setMessage(
-      'If the e-mail exists, you will receive a message with your password '
-    );
+  async function responseHandler() {
+    try {
+      const response = await fetch('http://localhost:3001/v1/mail ', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email }),
+      });
+      if (response.ok) {
+        setResponse(false);
+        setMessage(
+          'If the e-mail exists, you will receive a message with your password '
+        );
+      } else {
+        setResponse(false);
+        setErrorMessage('Email can not be empty');
+      }
+    } catch (error: any) {
+      console.error('Network error:', error.message);
+    }
   }
   return (
     <div>
@@ -36,7 +54,7 @@ function ForgottenPassword() {
               </button>
             </div>
           )}
-          {response ? undefined : (
+          {response ? undefined : ( //response by default true, when we click the button turn false to hide all information and show text
             <div
               style={{
                 color: 'green',
@@ -52,7 +70,3 @@ function ForgottenPassword() {
   );
 }
 export default ForgottenPassword;
-//here i have to implement sending password to valid mails
-//onclick make all content disappear (render true/false )
-
-//i use response && because i'll also implement valid? valid message[is the given mail exists, you will receive a message with your password]

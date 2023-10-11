@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import './styles/ResetPassword.css';
 import { useParams, useNavigate } from 'react-router-dom';
+import resetPassAPI from "../api/resetPasswordAPI";
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState('');
-  const { id } = useParams();
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const resetPassword = async () => {
-    const update_password = process.env.REACT_APP_UPDATE_PASSWORD;
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!passSpecialChar || newPassword.length < 6) {
@@ -22,15 +21,7 @@ const ResetPassword = () => {
       return;
     }
     setIsValid(true);
-    await fetch(`${update_password}${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        password: newPassword,
-      }),
-    });
+    resetPassAPI(id, newPassword);
 
     setTimeout(() => {
       navigate('/login', { replace: true });

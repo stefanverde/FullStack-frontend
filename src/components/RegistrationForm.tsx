@@ -1,16 +1,19 @@
 import React from 'react';
 import '../GlobalCSS/Global.css';
-import './componentsStyles/RegistrationForm.css';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import './styles/RegistrationForm.css';
+
 function RegistrationForm() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [repeatPasswordError, setRepeatPasswordError] = useState('');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    password: '',
+    repeatPassword: '',
+    email: '',
+  });
+
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e: { target: { value: any } }) => {
     const newPassword = e.target.value;
@@ -18,11 +21,11 @@ function RegistrationForm() {
     const containsSpecialCharacter = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!containsNumber || !containsSpecialCharacter) {
-      setPasswordError(
+      setError(
         'Password must contain at least one number and one special character.'
       );
     } else {
-      setPasswordError(''); // Clears error if password valid
+      setError('');
     }
 
     setPassword(newPassword);
@@ -32,22 +35,29 @@ function RegistrationForm() {
     const newRepeatPassword = e.target.value;
     setRepeatPassword(newRepeatPassword);
 
-    if (newRepeatPassword !== password) {
-      setRepeatPasswordError('Passwords do not match.');
-    } else {
-      setRepeatPasswordError(''); // need to check this
+  const submitForm = async (e: any) => {
+    if (formData.password !== formData.repeatPassword) {
+      setError("Passwords don't match. ");
+      return;
     }
-  };
+    if (
+      formData.firstName === '' ||
+      formData.lastName === '' ||
+      formData.email === '' ||
+      formData.password === '' ||
+      formData.repeatPassword === ''
+    ) {
+      setError('None of the fields should be empty');
+      return;
+    }
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+    if (!isValidEmail) {
+      setError('Invalid email format. Please enter a valid email address.');
+      return;
+    }
 
-  const submitForm = async () => {
-    const myData = {
-      firstName,
-      lastName,
-      password,
-      email,
-    };
-
-    console.log('myData', myData);
+    const { repeatPassword, ...requestData } = formData;
+    // console.log('formData', requestData);
 
     const result = await fetch('http://localhost:3001/v1/users/add', {
       method: 'POST',
@@ -56,9 +66,12 @@ function RegistrationForm() {
       },
       body: JSON.stringify(myData),
     });
+
+    navigate('/login', { replace: true });
     const json = await result.json();
-    console.log(json);
+    //console.log(json);
   };
+
   return (
     <div className='backimage'>
       <div className='registration-modal'>
@@ -120,7 +133,8 @@ function RegistrationForm() {
             Back to Login. &rarr;
           </Link>
         </button>
-        {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+
+        {error && <div style={{ color: 'red' }}>{error}</div>}
       </div>
     </div>
   );

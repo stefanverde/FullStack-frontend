@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
-import '../routes/routesStyles/Login.css';
-import './componentsStyles/ForgottenPassword.css';
+import '../pages/styles/Login.css';
+import './styles/ForgottenPassword.css';
 import { Link } from 'react-router-dom';
 
 function ForgottenPassword() {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-
+  const [error, setError] = useState('');
   async function responseHandler() {
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValidEmail) {
+      setError('Invalid email format. Please enter a valid email address.');
+      return;
+    }
     try {
-      const response = await fetch('http://localhost:3001/v1/mail ', {
+      await fetch('http://localhost:3001/v1/mail ', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email: email }),
       });
-      if (response.ok) {
-        setResponse(false);
-        setMessage(
-          'If the e-mail exists, you will receive a message with your password '
-        );
-      } else {
-        setResponse(false);
-        setErrorMessage('Email can not be empty');
-      }
+
+      setResponse(false);
+      setMessage(
+        'If the e-mail exists, you will receive a message with your password '
+      );
     } catch (error: any) {
       console.error('Network error:', error.message);
     }
@@ -49,6 +49,7 @@ function ForgottenPassword() {
                 onClick={responseHandler}>
                 Retrieve Password
               </button>
+              {error && <div style={{ color: 'red' }}>{error}</div>}
               <button className='forgottenToMain'>
                 <Link to='/login'>Back &rarr;</Link>
               </button>

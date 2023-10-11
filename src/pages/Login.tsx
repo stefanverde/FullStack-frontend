@@ -2,31 +2,13 @@ import { useState } from 'react';
 import './styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
+import fetchRequest from '../api/fetchRequestAPI';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  const fetchRequest = async (
-    input: RequestInfo | URL,
-    init: RequestInit | undefined
-  ) => {
-    const response = await fetch(input, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      ...init,
-    });
-
-    if (!response.ok) {
-      throw new Error('error');
-    }
-    const json = await response.json();
-    return json;
-  };
 
   const loginHandler = async () => {
     if (username.trim() === '' || password.trim() === '') {
@@ -36,7 +18,7 @@ function Login() {
 
     try {
       const response = await fetchRequest(
-        'http://localhost:3001/v1/auth/login',
+        `${process.env.REACT_APP_LOGIN_TOKEN_ENDPOINT}`,
         {
           body: JSON.stringify({
             email: username,
@@ -49,7 +31,7 @@ function Login() {
       navigate('/', { replace: true });
     } catch (e) {
       //console.log(e);
-      setError("login details wrong");
+      setError('login details wrong');
     }
   };
 

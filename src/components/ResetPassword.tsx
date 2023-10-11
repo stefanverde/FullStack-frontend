@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './styles/ResetPassword.css';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -10,6 +10,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   const resetPassword = async () => {
+    const update_password = process.env.REACT_APP_UPDATE_PASSWORD;
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!passSpecialChar || newPassword.length < 6) {
@@ -21,21 +22,17 @@ const ResetPassword = () => {
       return;
     }
     setIsValid(true);
-    const result = await fetch(
-      `http://localhost:3001/v1/users/update-password/${id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          password: newPassword,
-        }),
-      }
-    );
+    await fetch(`${update_password}${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password: newPassword,
+      }),
+    });
 
     setTimeout(() => {
-
       navigate('/login', { replace: true });
     }, 1000);
   };
@@ -70,7 +67,6 @@ const ResetPassword = () => {
             {error && (
               <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
             )}
-            
           </div>
         )}
       </div>

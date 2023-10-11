@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../GlobalCSS/Global.css';
 import './styles/RegistrationForm.css';
+import fetchRequest from '../api/fetchRequestAPI';
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -13,7 +14,6 @@ function RegistrationForm() {
   });
 
   const [error, setError] = useState('');
-
   const navigate = useNavigate();
 
   const handleInputChange = (e: any) => {
@@ -64,16 +64,12 @@ function RegistrationForm() {
     }
     const { repeatPassword, ...requestData } = formData;
 
-    const result = await fetch('http://localhost:3001/v1/users/add', {
+    await fetchRequest(`${process.env.REACT_APP_ADD_USER}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify(requestData),
     });
 
     navigate('/login', { replace: true });
-    const json = await result.json();
   };
 
   return (

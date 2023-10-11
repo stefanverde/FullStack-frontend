@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+
 export interface User {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
 }
-const FetchUserDetails = async () => {
-    const [userDetails, setUserDetails] = useState<User | null>(null);
+const UserDetails = async () => {
+  const [userDetails, setUserDetails] = useState<User | null>(null);
+
+  const fetchUserDetails = async () => {
     try {
       const authToken = localStorage.getItem('authToken');
       if (!authToken) {
@@ -35,7 +38,8 @@ const FetchUserDetails = async () => {
     }
   };
   useEffect(() => {
-    FetchUserDetails();
+    fetchUserDetails();
   }, []);
-
-export default FetchUserDetails;
+  
+};
+export default UserDetails;

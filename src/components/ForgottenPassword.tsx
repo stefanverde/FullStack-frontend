@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../pages/styles/Login.css';
 import './styles/ForgottenPassword.css';
 import { Link } from 'react-router-dom';
+import fetchRequest from '../api/fetchRequestAPI';
 
 function ForgottenPassword() {
   const [email, setEmail] = useState('');
@@ -14,8 +15,9 @@ function ForgottenPassword() {
       setError('Invalid email format. Please enter a valid email address.');
       return;
     }
+
     try {
-      await fetch('http://localhost:3001/v1/mail ', {
+      await fetch(`${process.env.REACT_APP_SEND_MAIL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

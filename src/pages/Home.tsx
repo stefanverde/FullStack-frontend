@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router';
 import './styles/Home.css';
-import React, { useEffect, useRef, useState } from 'react';
-import { Blob } from 'buffer';
+import React, { useState } from 'react';
 import ProfilePicture from '../components/ProfilePicture';
-import fetchUserDetails from '../api/LoginAPI';
-import { User } from '../api/LoginAPI';
+import { User } from '../api/FetchUserDetailsAPI';
+import FetchUserDetails from '../api/FetchUserDetailsAPI';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
   const [userDetails, setUserDetails] = useState<User | null>(null);
-  const [image, setImage] = useState<Blob | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -20,8 +18,6 @@ const Home: React.FC = () => {
   const handlerModalToggle = () => {
     setIsClicked(!isClicked);
   };
-
-
 
   return (
     <div className='backimage'>
@@ -33,12 +29,10 @@ const Home: React.FC = () => {
       {isClicked && (
         <div className='itemsModal'>
           <ProfilePicture />
-          <div className='block'>ID:&nbsp; {userDetails?.id}</div>
-          <div className='block'>
-            First Name:&nbsp; {userDetails?.firstName}
-          </div>
-          <div className='block'>Last Name:&nbsp; {userDetails?.lastName}</div>
-          <div className='block'>Email:&nbsp; {userDetails?.email}</div>
+          <div className='block'>ID: {userDetails?.id}</div>
+          <div className='block'>First Name: {userDetails?.firstName}</div>
+          <div className='block'>Last Name: {userDetails?.lastName}</div>
+          <div className='block'>Email: {userDetails?.email}</div>
         </div>
       )}
       <button

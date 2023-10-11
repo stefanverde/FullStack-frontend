@@ -12,7 +12,8 @@ function RegistrationForm() {
     email: '',
   });
 
-  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
 
   const handleInputChange = (e: any) => {
@@ -26,11 +27,11 @@ function RegistrationForm() {
     const containsSpecialCharacter = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!containsNumber || !containsSpecialCharacter) {
-      setPasswordError(
+      setError(
         'Password must contain at least one number and one special character.'
       );
     } else {
-      setPasswordError('');
+      setError('');
     }
 
     setFormData({ ...formData, password: newPassword });
@@ -43,7 +44,22 @@ function RegistrationForm() {
 
   const submitForm = async (e: any) => {
     if (formData.password !== formData.repeatPassword) {
-      setPasswordError("Passwords don't match. ");
+      setError("Passwords don't match. ");
+      return;
+    }
+    if (
+      formData.firstName === '' ||
+      formData.lastName === '' ||
+      formData.email === '' ||
+      formData.password === '' ||
+      formData.repeatPassword === ''
+    ) {
+      setError('None of the fields should be empty');
+      return;
+    }
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+    if (!isValidEmail) {
+      setError('Invalid email format. Please enter a valid email address.');
       return;
     }
     const { repeatPassword, ...requestData } = formData;
@@ -116,7 +132,7 @@ function RegistrationForm() {
           </Link>
         </button>
 
-        {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+        {error && <div style={{ color: 'red' }}>{error}</div>}
       </div>
     </div>
   );

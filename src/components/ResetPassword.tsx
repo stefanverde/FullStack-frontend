@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 import './styles/ResetPassword.css';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const [error, setError] = useState(false);
-
+  const [error, setError] = useState('');
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const resetPassword = async () => {
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!passSpecialChar || newPassword.length < 6) {
-      console.log(
-        "Passwords don't meet the requirements. Either too short or do not contain a special character"
-      );
-      setError(true);
+      setError('Passwords too short or do not contain a special character');
       return;
     }
     if (newPassword !== password) {
-      console.log("Passwords don't match");
-      setError(true);
+      setError("Passwords don't match");
       return;
     }
     setIsValid(true);
-
     const result = await fetch(
       `http://localhost:3001/v1/users/update-password/${id}`,
       {
@@ -38,6 +33,11 @@ const ResetPassword = () => {
         }),
       }
     );
+
+    setTimeout(() => {
+
+      navigate('/login', { replace: true });
+    }, 1000);
   };
   return (
     <div className='backimage'>
@@ -67,6 +67,10 @@ const ResetPassword = () => {
               onClick={resetPassword}>
               Submit
             </button>
+            {error && (
+              <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+            )}
+            
           </div>
         )}
       </div>

@@ -7,8 +7,13 @@ function ForgottenPassword() {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
-
+  const [error, setError] = useState('');
   async function responseHandler() {
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValidEmail) {
+      setError('Invalid email format. Please enter a valid email address.');
+      return;
+    }
     try {
       await fetch('http://localhost:3001/v1/mail ', {
         method: 'POST',
@@ -44,6 +49,7 @@ function ForgottenPassword() {
                 onClick={responseHandler}>
                 Retrieve Password
               </button>
+              {error && <div style={{ color: 'red' }}>{error}</div>}
               <button className='forgottenToMain'>
                 <Link to='/login'>Back &rarr;</Link>
               </button>

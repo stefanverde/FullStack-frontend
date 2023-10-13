@@ -3,22 +3,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../GlobalCSS/Global.css';
 import './styles/RegistrationForm.css';
 import fetchRequest from '../api/fetchRequestAPI';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser, setError } from '../redux/actions/userActions';
 function RegistrationForm() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    password: '',
-    repeatPassword: '',
-    email: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   password: '',
+  //   repeatPassword: '',
+  //   email: '',
+  // });
 
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
+  const formData = useSelector((state:any) => state.user.formData);
+  const error = useSelector((state:any) => state.user.error);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // setFormData({ ...formData, [name]: value });
+    dispatch(updateUser({ ...formData, [name]: value }));
   };
 
   const handlePasswordChange = (e: any) => {
@@ -27,24 +32,26 @@ function RegistrationForm() {
     const containsSpecialCharacter = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!containsNumber || !containsSpecialCharacter) {
-      setError(
+      dispatch(setError(
         'Password must contain at least one number and one special character.'
-      );
+      ));
     } else {
-      setError('');
+      dispatch(setError(''));
     }
 
-    setFormData({ ...formData, password: newPassword });
+    // setFormData({ ...formData, password: newPassword });
+    dispatch(updateUser({...formData, password: newPassword}));
   };
 
   const handleRepeatPasswordChange = (e: any) => {
     const newRepeatPassword = e.target.value;
-    setFormData({ ...formData, repeatPassword: newRepeatPassword });
+    // setFormData({ ...formData, repeatPassword: newRepeatPassword });
+    dispatch(updateUser({...formData, repeatPassword: newRepeatPassword}));
   };
 
   const submitForm = async (e: any) => {
     if (formData.password !== formData.repeatPassword) {
-      setError("Passwords don't match. ");
+      dispatch(setError("Passwords don't match. "));
       return;
     }
     if (
@@ -54,12 +61,12 @@ function RegistrationForm() {
       formData.password === '' ||
       formData.repeatPassword === ''
     ) {
-      setError('None of the fields should be empty');
+      dispatch(setError('None of the fields should be empty'));
       return;
     }
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
     if (!isValidEmail) {
-      setError('Invalid email format. Please enter a valid email address.');
+      dispatch(setError('Invalid email format. Please enter a valid email address.'));
       return;
     }
     const { repeatPassword, ...requestData } = formData;
@@ -76,7 +83,7 @@ function RegistrationForm() {
     const user = string ? JSON.parse(string) : null;
 
     if (user) {
-      setError('email already exists');
+      dispatch(setError('email already exists'));
       return;
     }
 

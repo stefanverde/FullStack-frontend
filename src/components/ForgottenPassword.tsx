@@ -3,7 +3,6 @@ import '../pages/styles/Login.css';
 import './styles/ForgottenPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-
 function ForgottenPassword() {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
@@ -16,27 +15,22 @@ function ForgottenPassword() {
       setError('Invalid email format. Please enter a valid email address.');
       return;
     }
+    await fetch(`${process.env.REACT_APP_SEND_MAIL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email }),
+    });
 
-    try {
-      await fetch(`${process.env.REACT_APP_SEND_MAIL}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: email }),
-      });
+    setResponse(false);
+    setMessage(
+      'If the e-mail exists, you will receive a message with your password '
+    );
 
-      setResponse(false);
-      setMessage(
-        'If the e-mail exists, you will receive a message with your password '
-      );
-    } catch (error: any) {
-      // console.error('Network error:', error.message);
-    }
     setTimeout(() => {
-      navigate('/login', { replace: true });  
+      navigate('/login', { replace: true });
     }, 2000);
-    
   }
   return (
     <div>

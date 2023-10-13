@@ -38,7 +38,6 @@ function ProfilePicture() {
                   lastModified: Date.now(),
                 });
               }
-              // console.log(file);
               setImage(file);
             },
             'image/jpeg',
@@ -50,7 +49,7 @@ function ProfilePicture() {
       console.log('No file selected');
     }
   };
-  
+
   return (
     <div>
       <div onClick={handleImageClick}>

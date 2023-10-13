@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import './styles/ResetPassword.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import resetPassAPI from '../api/resetPasswordAPI';
+
+const useQuery = () => {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -9,9 +15,10 @@ const ResetPassword = () => {
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { id } = useParams();
-  
+  const query = useQuery();
+
   const resetPassword = async () => {
+    // const token = localStorage.getItem('token');
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!passSpecialChar || newPassword.length < 6) {
@@ -24,18 +31,15 @@ const ResetPassword = () => {
     }
     setIsValid(true);
 
-    try{
-      const token = await resetPassAPI(id, newPassword);
-      
-      localStorage.setItem('token', token);
+    try {
+      await resetPassAPI(query.get('token') || '', newPassword);
+
       setTimeout(() => {
         navigate('/login', { replace: true });
       }, 1000);
-    }catch(error){
+    } catch (error) {
       console.error('Error resetting password:', error);
     }
-
-    
   };
   return (
     <div className='backimage'>

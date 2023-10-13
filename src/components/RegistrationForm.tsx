@@ -2,13 +2,13 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../GlobalCSS/Global.css';
 import './styles/RegistrationForm.css';
-import fetchRequest from '../api/fetchRequestAPI';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateUser,
   setError,
   resetFormData,
 } from '../redux/actions/userActions';
+import addUserAPI from '../api/addUserAPI';
 
 function RegistrationForm() {
   const formData = useSelector((state: any) => state.user.formData);
@@ -66,8 +66,8 @@ function RegistrationForm() {
       );
       return;
     }
-    const { repeatPassword, ...requestData } = formData;
 
+    // checkExistingMail(formData,dispatch);
     const response = await fetch(
       `${process.env.REACT_APP_CHECK_EXISTING_EMAIL}${formData.email}`,
       {
@@ -83,12 +83,10 @@ function RegistrationForm() {
       dispatch(setError('email already exists'));
       return;
     }
+    
     dispatch(setError(''));
 
-    await fetchRequest(`${process.env.REACT_APP_ADD_USER}`, {
-      method: 'POST',
-      body: JSON.stringify(requestData),
-    });
+    addUserAPI(formData);
 
     dispatch(resetFormData());
     navigate('/login', { replace: true });

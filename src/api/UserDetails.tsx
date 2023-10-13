@@ -18,7 +18,7 @@ const UserDetails = async () => {
       const tokenPayload = JSON.parse(atob(authToken.split('.')[1]));
       const userId = tokenPayload.id;
       const response = await fetch(
-        `http://localhost:3001/v1/users/details/${userId}`,
+        `${process.env.REACT_APP_USER_DATA_ENDPOINT}${userId}`,
         {
           method: 'GET',
           headers: {

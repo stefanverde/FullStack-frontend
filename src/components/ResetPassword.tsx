@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './styles/ResetPassword.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import resetPassAPI from "../api/resetPasswordAPI";
+import resetPassAPI from '../api/resetPasswordAPI';
+
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -9,6 +10,7 @@ const ResetPassword = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { id } = useParams();
+  
   const resetPassword = async () => {
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
@@ -21,11 +23,19 @@ const ResetPassword = () => {
       return;
     }
     setIsValid(true);
-    resetPassAPI(id, newPassword);
 
-    setTimeout(() => {
-      navigate('/login', { replace: true });
-    }, 1000);
+    try{
+      const token = await resetPassAPI(id, newPassword);
+      
+      localStorage.setItem('token', token);
+      setTimeout(() => {
+        navigate('/login', { replace: true });
+      }, 1000);
+    }catch(error){
+      console.error('Error resetting password:', error);
+    }
+
+    
   };
   return (
     <div className='backimage'>

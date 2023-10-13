@@ -2,8 +2,7 @@ import { useNavigate } from 'react-router';
 import './styles/Home.css';
 import React, { useEffect, useState } from 'react';
 import ProfilePicture from '../components/ProfilePicture';
-import { User } from '../api/HomeUserDetails';
-import SendmailTransport from 'nodemailer/lib/sendmail-transport';
+import { User } from '../api/UserDetails';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();

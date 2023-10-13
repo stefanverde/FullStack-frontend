@@ -27,6 +27,7 @@ function Login() {
           method: 'POST',
         }
       );
+      console.log(response);
       localStorage.setItem('authToken', response.access_token);
       navigate('/', { replace: true });
     } catch (e) {

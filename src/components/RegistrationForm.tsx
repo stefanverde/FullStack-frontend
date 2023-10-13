@@ -64,6 +64,22 @@ function RegistrationForm() {
     }
     const { repeatPassword, ...requestData } = formData;
 
+    const response = await fetch(
+      `${process.env.REACT_APP_CHECK_EXISTING_EMAIL}${formData.email}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+
+    const string = await response.text();
+    const user = string ? JSON.parse(string) : null;
+
+    if (user) {
+      setError('email already exists');
+      return;
+    }
+
     await fetchRequest(`${process.env.REACT_APP_ADD_USER}`, {
       method: 'POST',
       body: JSON.stringify(requestData),
@@ -116,7 +132,7 @@ function RegistrationForm() {
 
         <button
           className='submit'
-          onClick={async (event) => await submitForm(event)}>
+          onClick={(event) => submitForm(event)}>
           Submit Registration
         </button>
 

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import '../pages/styles/Login.css';
 import './styles/ForgottenPassword.css';
-import { Link } from 'react-router-dom';
-import fetchRequest from '../api/fetchRequestAPI';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function ForgottenPassword() {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
   async function responseHandler() {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail) {
@@ -30,8 +31,12 @@ function ForgottenPassword() {
         'If the e-mail exists, you will receive a message with your password '
       );
     } catch (error: any) {
-      console.error('Network error:', error.message);
+      // console.error('Network error:', error.message);
     }
+    setTimeout(() => {
+      navigate('/login', { replace: true });  
+    }, 2000);
+    
   }
   return (
     <div>

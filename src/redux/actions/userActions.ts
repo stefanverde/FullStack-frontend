@@ -11,3 +11,9 @@ export const updateUser = (userData: any) => {
       payload: error,
     };
   };
+
+  export const resetFormData = () => {
+    return{
+      type:'RESET_FORM_DATA',
+    }
+  }

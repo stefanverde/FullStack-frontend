@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import '../pages/styles/Login.css';
 import './styles/ForgottenPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { setError } from '../redux/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-function ForgottenPassword() {
+const ForgottenPassword =() => {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const error = useSelector((state:any) => state.user.error);
   const navigate = useNavigate();
-  async function responseHandler() {
+  const dispatch = useDispatch();
+   const responseHandler = async() => {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail) {
-      setError('Invalid email format. Please enter a valid email address.');
+      dispatch(setError('Invalid email format. Please enter a valid email address.'));
       return;
     }
     await fetch(`${process.env.REACT_APP_SEND_MAIL}`, {

@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../GlobalCSS/Global.css';
 import './styles/RegistrationForm.css';
 import fetchRequest from '../api/fetchRequestAPI';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUser, setError } from '../redux/actions/userActions';
-function RegistrationForm() {
-  // const [formData, setFormData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   password: '',
-  //   repeatPassword: '',
-  //   email: '',
-  // });
+import {
+  updateUser,
+  setError,
+  resetFormData,
+} from '../redux/actions/userActions';
 
-  // const [error, setError] = useState('');
-  const formData = useSelector((state:any) => state.user.formData);
-  const error = useSelector((state:any) => state.user.error);
+function RegistrationForm() {
+  const formData = useSelector((state: any) => state.user.formData);
+  const error = useSelector((state: any) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    // setFormData({ ...formData, [name]: value });
     dispatch(updateUser({ ...formData, [name]: value }));
   };
 
@@ -32,21 +27,21 @@ function RegistrationForm() {
     const containsSpecialCharacter = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!containsNumber || !containsSpecialCharacter) {
-      dispatch(setError(
-        'Password must contain at least one number and one special character.'
-      ));
+      dispatch(
+        setError(
+          'Password must contain at least one number and one special character.'
+        )
+      );
     } else {
       dispatch(setError(''));
     }
 
-    // setFormData({ ...formData, password: newPassword });
-    dispatch(updateUser({...formData, password: newPassword}));
+    dispatch(updateUser({ ...formData, password: newPassword }));
   };
 
   const handleRepeatPasswordChange = (e: any) => {
     const newRepeatPassword = e.target.value;
-    // setFormData({ ...formData, repeatPassword: newRepeatPassword });
-    dispatch(updateUser({...formData, repeatPassword: newRepeatPassword}));
+    dispatch(updateUser({ ...formData, repeatPassword: newRepeatPassword }));
   };
 
   const submitForm = async (e: any) => {
@@ -66,7 +61,9 @@ function RegistrationForm() {
     }
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
     if (!isValidEmail) {
-      dispatch(setError('Invalid email format. Please enter a valid email address.'));
+      dispatch(
+        setError('Invalid email format. Please enter a valid email address.')
+      );
       return;
     }
     const { repeatPassword, ...requestData } = formData;
@@ -86,12 +83,14 @@ function RegistrationForm() {
       dispatch(setError('email already exists'));
       return;
     }
+    dispatch(setError(''));
 
     await fetchRequest(`${process.env.REACT_APP_ADD_USER}`, {
       method: 'POST',
       body: JSON.stringify(requestData),
     });
 
+    dispatch(resetFormData());
     navigate('/login', { replace: true });
   };
 

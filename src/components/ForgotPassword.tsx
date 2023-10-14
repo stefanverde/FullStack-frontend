@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import '../pages/styles/Login.css';
-import './styles/ForgottenPassword.css';
+import './styles/ForgotPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-const ForgottenPassword =() => {
+const ForgotPassword =() => {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
@@ -73,4 +73,4 @@ const ForgottenPassword =() => {
     </div>
   );
 }
-export default ForgottenPassword;
+export default ForgotPassword;

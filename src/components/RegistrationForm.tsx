@@ -83,7 +83,7 @@ function RegistrationForm() {
       dispatch(setError('email already exists'));
       return;
     }
-    
+
     dispatch(setError(''));
 
     addUserAPI(formData);

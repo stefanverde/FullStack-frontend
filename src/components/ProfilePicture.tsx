@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-function ProfilePicture() {
+const ProfilePicture = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<Blob | null>(null);
 

@@ -5,17 +5,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-const ForgotPassword =() => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
   const [message, setMessage] = useState('');
-  const error = useSelector((state:any) => state.user.error);
+  const error = useSelector((state: any) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-   const responseHandler = async() => {
+  const responseHandler = async () => {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail) {
-      dispatch(setError('Invalid email format. Please enter a valid email address.'));
+      dispatch(
+        setError('Invalid email format. Please enter a valid email address.')
+      );
       return;
     }
     await fetch(`${process.env.REACT_APP_SEND_MAIL}`, {
@@ -34,7 +36,7 @@ const ForgotPassword =() => {
     setTimeout(() => {
       navigate('/login', { replace: true });
     }, 2000);
-  }
+  };
   return (
     <div>
       <div className='backimage'>
@@ -72,5 +74,5 @@ const ForgotPassword =() => {
       </div>
     </div>
   );
-}
+};
 export default ForgotPassword;

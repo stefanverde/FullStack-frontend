@@ -9,7 +9,6 @@ const Home: React.FC = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [userDetails, setUserDetails] = useState<User | null>(null);
   const fetchUserDetails = async () => {
-    
     try {
       const authToken = localStorage.getItem('authToken');
       if (!authToken) {

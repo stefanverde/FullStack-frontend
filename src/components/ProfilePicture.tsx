@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const ProfilePicture = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -10,7 +10,7 @@ const ProfilePicture = () => {
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const imgname = file.name;
+      // const imgname = file.name;
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -33,10 +33,10 @@ const ProfilePicture = () => {
           canvas.toBlob(
             (blob) => {
               if (blob) {
-                const file = new File([blob], imgname, {
-                  type: 'image/png',
-                  lastModified: Date.now(),
-                });
+                // const file = new File([blob], imgname, {
+                //   type: 'image/png',
+                //   lastModified: Date.now(),
+                // });
               }
               setImage(file);
             },
@@ -58,7 +58,7 @@ const ProfilePicture = () => {
             src={URL.createObjectURL(image)}
             alt=''></img>
         ) : (
-          <img src='./small.jpg'></img>
+          <img src='./small.jpg' alt= ''></img>
         )}
         <input
           type='file'

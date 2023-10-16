@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../pages/styles/Login.css';
 import './styles/ForgotPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { setError } from '../redux/actions/userActions';
+import { setError } from '../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import sendMailAPI from '../api/sendMailAPI';
 const ForgotPassword = () => {

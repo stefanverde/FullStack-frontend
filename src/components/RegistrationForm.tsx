@@ -3,11 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../GlobalCSS/Global.css';
 import './styles/RegistrationForm.css';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  updateUser,
-  setError,
-  resetFormData,
-} from '../redux/actions/userActions';
+import { updateUser,setError,resetFormData } from '../redux/features/userSlice';
 import addUserAPI from '../api/addUserAPI';
 import checkExistingMail from '../api/checkExistingMailAPI';
 
@@ -69,7 +65,6 @@ function RegistrationForm() {
     }
 
     const response = await checkExistingMail(formData);
-
     const string = await response.text();
     const user = string ? JSON.parse(string) : null;
 
@@ -77,9 +72,8 @@ function RegistrationForm() {
       dispatch(setError('email already exists'));
       return;
     }
-    
-    dispatch(setError(''));
 
+    dispatch(setError(''));
     addUserAPI(formData);
 
     dispatch(resetFormData());

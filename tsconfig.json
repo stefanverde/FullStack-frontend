@@ -15,7 +15,5 @@
 
   "include": [
     "./src/**/*", 
-    // "src/mail/mail.tsx"
-    "src/mail/**/*"
   ]
 }

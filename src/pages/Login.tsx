@@ -31,7 +31,6 @@ function Login() {
       localStorage.setItem('authToken', response.access_token);
       navigate('/', { replace: true });
     } catch (e) {
-      //console.log(e);
       setError('login details wrong');
     }
   };

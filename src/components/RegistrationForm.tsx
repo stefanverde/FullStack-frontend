@@ -67,7 +67,6 @@ function RegistrationForm() {
       return;
     }
 
-    // checkExistingMail(formData,dispatch);
     const response = await fetch(
       `${process.env.REACT_APP_CHECK_EXISTING_EMAIL}${formData.email}`,
       {
@@ -83,7 +82,7 @@ function RegistrationForm() {
       dispatch(setError('email already exists'));
       return;
     }
-
+    
     dispatch(setError(''));
 
     addUserAPI(formData);

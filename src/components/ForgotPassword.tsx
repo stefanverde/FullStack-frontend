@@ -4,7 +4,7 @@ import './styles/ForgotPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import sendMailAPI from '../api/sendMailAPI';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
@@ -20,19 +20,14 @@ const ForgotPassword = () => {
       );
       return;
     }
-    await fetch(`${process.env.REACT_APP_SEND_MAIL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: email }),
-    });
+
+    sendMailAPI(email);
 
     setResponse(false);
     setMessage(
       'If the e-mail exists, you will receive a message with your password '
     );
-
+    dispatch(setError(''));
     setTimeout(() => {
       navigate('/login', { replace: true });
     }, 2000);

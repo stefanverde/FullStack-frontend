@@ -9,6 +9,7 @@ import {
   resetFormData,
 } from '../redux/actions/userActions';
 import addUserAPI from '../api/addUserAPI';
+import checkExistingMail from '../api/checkExistingMailAPI';
 
 function RegistrationForm() {
   const formData = useSelector((state: any) => state.user.formData);
@@ -67,13 +68,7 @@ function RegistrationForm() {
       return;
     }
 
-    const response = await fetch(
-      `${process.env.REACT_APP_CHECK_EXISTING_EMAIL}${formData.email}`,
-      {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    const response = await checkExistingMail(formData);
 
     const string = await response.text();
     const user = string ? JSON.parse(string) : null;

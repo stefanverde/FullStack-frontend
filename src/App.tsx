@@ -1,39 +1,21 @@
 import React from 'react';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import ForgotPassword from './components/ForgotPassword';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import RegistrationForm from './components/RegistrationForm';
-import ResetPassword from './components/ResetPassword';
-
-interface PrivateElementProps {
-  element: React.ComponentType;
-}
-
-function PrivateElement({ element: Element }: PrivateElementProps) {
-  return localStorage.getItem('authToken') ? <Element /> : <Login />;
-}
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <PrivateElement element={Home} />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  { path: '/register', element: <RegistrationForm /> },
-  {
-    path: '/forgotPassword',
-    element: <ForgotPassword />,
-  },
-  {
-    path: '/resetPassword',
-    element: <ResetPassword />,
-  },
-]);
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
+import { checkEmailApi } from './api/checkExistingMailAPI';
+import router from './Routes';
+import { RouterProvider } from 'react-router-dom';
+import { Fragment } from 'react';
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Fragment>
+      <Provider store={store}>
+        <ApiProvider api={checkEmailApi}>
+          <RouterProvider router={router} />
+        </ApiProvider>
+      </Provider>
+    </Fragment>
+  );
 }
 
 export default App;

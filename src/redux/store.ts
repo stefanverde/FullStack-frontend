@@ -1,11 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './features/userSlice';
+import { checkEmailApi } from '../api/checkExistingMailAPI';
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
+const rootReducer = combineReducers({
+  user: userReducer,
+  [checkEmailApi.reducerPath]: checkEmailApi.reducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const store = configureStore({
+  reducer: rootReducer,
+  
+});
+

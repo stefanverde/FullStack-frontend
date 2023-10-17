@@ -18,10 +18,12 @@ export const checkEmailApi = createApi({
   reducerPath: 'checkEmailApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_CHECK_EXISTING_EMAIL}`,
+    
   }),
   endpoints: (builder) => ({
     checkExistingMail: builder.query({
       query: (formData) => `${formData.email}`,
+      
     }),
   }),
 });

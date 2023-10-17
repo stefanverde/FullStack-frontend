@@ -9,14 +9,15 @@ import {
   resetFormData,
 } from '../redux/features/userSlice';
 import addUserAPI from '../api/addUserAPI';
-
+import { checkEmailApi, useCheckExistingMailQuery } from '../api/checkExistingMailAPI';
 
 function RegistrationForm() {
   const formData = useSelector((state: any) => state.user.formData);
   const error = useSelector((state: any) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { data } = useCheckExistingMailQuery(formData.email);
+  
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     dispatch(updateUser({ ...formData, [name]: value }));
@@ -46,6 +47,8 @@ function RegistrationForm() {
   };
 
   const submitForm = async (e: any) => {
+    
+    
     if (formData.password !== formData.repeatPassword) {
       dispatch(setError("Passwords don't match. "));
       return;
@@ -67,12 +70,9 @@ function RegistrationForm() {
       );
       return;
     }
-
-    // const response = await checkExistingMail(formData);
-    // const string = await response.text();
-    // const user = string ? JSON.parse(string) : null;
-
-    // if (user) {
+    dispatch(checkEmailApi.endpoints.checkExistingMail.initiate(formData));
+    
+    // if (data) {
     //   dispatch(setError('email already exists'));
     //   return;
     // }
@@ -80,7 +80,6 @@ function RegistrationForm() {
     dispatch(setError(''));
     addUserAPI(formData);
 
-    
     dispatch(resetFormData());
     navigate('/login', { replace: true });
   };

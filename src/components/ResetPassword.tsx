@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './styles/ResetPassword.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import resetPassAPI from '../api/resetPasswordAPI';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setError } from '../redux/features/userSlice';
 const useQuery = () => {
   const { search } = useLocation();
 
@@ -13,20 +14,22 @@ const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
+  const error = useSelector((state: any) => state.user.error);
   const navigate = useNavigate();
   const query = useQuery();
+  const dispatch = useDispatch();
 
   const resetPassword = async () => {
     // const token = localStorage.getItem('token');
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!passSpecialChar || newPassword.length < 6) {
-      setError('Passwords too short or do not contain a special character');
+      dispatch(setError('Passwords too short or do not contain a special character'));
       return;
     }
     if (newPassword !== password) {
-      setError("Passwords don't match");
+      dispatch(setError("Passwords don't match"));
       return;
     }
     setIsValid(true);
@@ -35,6 +38,7 @@ const ResetPassword = () => {
       await resetPassAPI(query.get('token') || '', newPassword);
 
       setTimeout(() => {
+        dispatch(setError(''));
         navigate('/login', { replace: true });
       }, 1000);
     } catch (error) {

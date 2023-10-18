@@ -1,19 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  formData: {
-    firstName: '',
-    lastName: '',
-    password: '',
-    repeatPassword: '',
-    email: '',
-  },
-  error: '',
-};
-
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    formData: {
+      firstName: '',
+      lastName: '',
+      password: '',
+      repeatPassword: '',
+      email: '',
+    },
+    error: '',
+  },
   reducers: {
     updateUser: (state, action: PayloadAction<any>) => {
       state.formData = action.payload;
@@ -34,4 +32,5 @@ const userSlice = createSlice({
 });
 
 export const { updateUser, setError, resetFormData } = userSlice.actions;
+console.log('userSlice', userSlice);
 export default userSlice.reducer;

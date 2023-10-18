@@ -9,6 +9,8 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(checkEmailApi.middleware),
 });
 
+export type RootState = ReturnType<typeof rootReducer>;

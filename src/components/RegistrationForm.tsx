@@ -2,22 +2,26 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../GlobalCSS/Global.css';
 import './styles/RegistrationForm.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 import {
   updateUser,
   setError,
   resetFormData,
 } from '../redux/features/userSlice';
 import addUserAPI from '../api/addUserAPI';
-import { checkEmailApi, useCheckExistingMailQuery } from '../api/checkExistingMailAPI';
+import { useCheckExistingMailQuery } from '../api/checkExistingMailAPI';
+import { RootState } from '../redux/store';
 
 function RegistrationForm() {
-  const formData = useSelector((state: any) => state.user.formData);
+  const formData = useSelector((state: RootState) => {
+    console.log('state = ', state);
+    return state?.user.formData;
+  });
   const error = useSelector((state: any) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data } = useCheckExistingMailQuery(formData.email);
-  
+  // const { data } = useCheckExistingMailQuery({ formData });
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     dispatch(updateUser({ ...formData, [name]: value }));
@@ -47,8 +51,6 @@ function RegistrationForm() {
   };
 
   const submitForm = async (e: any) => {
-    
-    
     if (formData.password !== formData.repeatPassword) {
       dispatch(setError("Passwords don't match. "));
       return;
@@ -70,8 +72,7 @@ function RegistrationForm() {
       );
       return;
     }
-    dispatch(checkEmailApi.endpoints.checkExistingMail.initiate(formData));
-    
+
     // if (data) {
     //   dispatch(setError('email already exists'));
     //   return;

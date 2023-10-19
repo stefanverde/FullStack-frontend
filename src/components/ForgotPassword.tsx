@@ -4,7 +4,8 @@ import './styles/ForgotPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import sendMailAPI from '../api/sendMailAPI';
+
+import { useSendMailMutation } from '../api/mailAPI';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
@@ -12,6 +13,7 @@ const ForgotPassword = () => {
   const error = useSelector((state: any) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [sendMail] = useSendMailMutation();
   const responseHandler = async () => {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail) {
@@ -20,8 +22,9 @@ const ForgotPassword = () => {
       );
       return;
     }
-
-    sendMailAPI(email);
+    
+    sendMail(email);
+    
 
     setResponse(false);
     setMessage(

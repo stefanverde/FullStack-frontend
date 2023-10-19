@@ -1,27 +1,23 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../GlobalCSS/Global.css';
+import '../assets/Global.css';
 import './styles/RegistrationForm.css';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import {
   updateUser,
   setError,
   resetFormData,
 } from '../redux/features/userSlice';
-import addUserAPI from '../api/addUserAPI';
-import { useCheckExistingMailQuery } from '../api/checkExistingMailAPI';
+import { useAddUserMutation, userApi } from '../api/userAPI';
 import { RootState } from '../redux/store';
 
 function RegistrationForm() {
-  const formData = useSelector((state: RootState) => {
-    console.log('state = ', state);
-    return state?.user.formData;
-  });
-  const error = useSelector((state: any) => state.user.error);
+  const formData = useSelector((state: RootState) => state.user.formData);
+  const error = useSelector((state: RootState) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { data } = useCheckExistingMailQuery({ formData });
-
+  const [trigger] = userApi.endpoints.checkExistingMail.useLazyQuery();
+  const [addUser] = useAddUserMutation();
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     dispatch(updateUser({ ...formData, [name]: value }));
@@ -51,6 +47,10 @@ function RegistrationForm() {
   };
 
   const submitForm = async (e: any) => {
+    
+    const resTrigger = await trigger(formData.email);
+    console.log('>>>>>>>>>', resTrigger);
+    const emailExists = !!resTrigger.data;
     if (formData.password !== formData.repeatPassword) {
       dispatch(setError("Passwords don't match. "));
       return;
@@ -73,16 +73,19 @@ function RegistrationForm() {
       return;
     }
 
-    // if (data) {
-    //   dispatch(setError('email already exists'));
-    //   return;
-    // }
+    if (emailExists) {
+      dispatch(setError('email exists'));
+      return;
+    }
+    else{
+      dispatch(setError(''));
+      const {repeatPassword,...userData} = formData;
+      addUser(userData);
 
-    dispatch(setError(''));
-    addUserAPI(formData);
-
-    dispatch(resetFormData());
-    navigate('/login', { replace: true });
+      dispatch(resetFormData());
+      navigate('/login', { replace: true });
+    }
+    
   };
 
   return (
@@ -106,7 +109,7 @@ function RegistrationForm() {
         />
         <input
           className='username'
-          type='text'
+          type='email'
           placeholder='Email@email.com'
           name='email'
           value={formData.email}

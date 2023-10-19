@@ -14,6 +14,7 @@ const userSlice = createSlice({
   },
   reducers: {
     updateUser: (state, action: PayloadAction<any>) => {
+      console.log('updateUser',action.payload);
       state.formData = action.payload;
     },
     setError: (state, action: PayloadAction<any>) => {
@@ -32,5 +33,4 @@ const userSlice = createSlice({
 });
 
 export const { updateUser, setError, resetFormData } = userSlice.actions;
-console.log('userSlice', userSlice);
 export default userSlice.reducer;

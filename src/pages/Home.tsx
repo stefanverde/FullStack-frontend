@@ -2,8 +2,12 @@ import { useNavigate } from 'react-router';
 import './styles/Home.css';
 import React, { useEffect, useState } from 'react';
 import ProfilePicture from '../components/ProfilePicture';
-import { User } from '../api/UserDetails';
-
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
@@ -16,8 +20,8 @@ const Home: React.FC = () => {
       }
       const tokenPayload = JSON.parse(atob(authToken.split('.')[1]));
       const userId = tokenPayload.id;
-      const user_data_env = process.env.REACT_APP_USER_DATA_ENDPOINT;
-      const response = await fetch(`${user_data_env}${userId}`, {
+      console.log(userId);
+      const response = await fetch(`${process.env.REACT_APP_USER_DATA_ENDPOINT}${userId}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${authToken}`,

@@ -3,13 +3,14 @@ import './styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import fetchRequest from '../api/fetchRequestAPI';
+import { useLoginMutation } from '../api/authAPI';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
+  const [login] = useLoginMutation();
   const loginHandler = async () => {
     if (username.trim() === '' || password.trim() === '') {
       setError("Login fields can't be empty.");

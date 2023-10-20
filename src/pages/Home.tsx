@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router';
 import './styles/Home.css';
 import React, { useEffect, useState } from 'react';
 import ProfilePicture from '../components/ProfilePicture';
+
 export interface User {
   id: string;
   firstName: string;
@@ -19,7 +20,9 @@ const Home: React.FC = () => {
         return;
       }
       const tokenPayload = JSON.parse(atob(authToken.split('.')[1]));
+      console.log('tokenpayload ------>',tokenPayload);
       const userId = tokenPayload.id;
+      
       console.log(userId);
       const response = await fetch(`${process.env.REACT_APP_USER_DATA_ENDPOINT}${userId}`, {
         method: 'GET',
@@ -34,6 +37,7 @@ const Home: React.FC = () => {
       } else {
         console.error('Error fetching user details');
       }
+      
     } catch (error) {
       console.error('Error fetching user details:', error);
     }

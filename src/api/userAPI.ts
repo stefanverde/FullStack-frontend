@@ -1,7 +1,4 @@
-import {
-  createApi,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/dist/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -10,28 +7,28 @@ export const userApi = createApi({
   }),
   endpoints: (builder) => ({
     checkExistingMail: builder.query({
-      query: (email) => `/by-email/${email}`,
+      query: (email) => `/byEmail/${email}`,
     }),
-    userDetails:builder.query({
-      query:(userId) => `/details/${userId}`,
+    userDetails: builder.query({
+      query: (userId) => `/details/${userId}`,
     }),
     addUser: builder.mutation({
-      query:(body) => ({
-        url:'/register',
+      query: (body) => ({
+        url: '/register',
         method: 'POST',
-        body
-      })
+        body,
+      }),
     }),
     resetPassword: builder.mutation({
       query: (body) => {
         console.log();
         return {
-          url: `/update-password`,
+          url: `/updatePassword`,
           method: 'PUT',
-          
+
           body: {
             token: body.token,
-            password: body.newPassword
+            password: body.newPassword,
           },
         };
       },
@@ -39,4 +36,9 @@ export const userApi = createApi({
   }),
 });
 
-export const { useCheckExistingMailQuery, useAddUserMutation, useResetPasswordMutation ,useUserDetailsQuery} = userApi;
+export const {
+  useCheckExistingMailQuery,
+  useAddUserMutation,
+  useResetPasswordMutation,
+  useUserDetailsQuery,
+} = userApi;

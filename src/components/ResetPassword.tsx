@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import './styles/ResetPassword.css';
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setError } from '../redux/features/userSlice';
 import { useResetPasswordMutation } from '../api/userAPI';
-
-const useQuery = () => {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-};
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -17,7 +11,6 @@ const ResetPassword = () => {
   const [isValid, setIsValid] = useState(false);
   const error = useSelector((state: any) => state.user.error);
   const navigate = useNavigate();
-  const query = useQuery();
   const dispatch = useDispatch();
   const [resetPass] = useResetPasswordMutation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,7 +36,7 @@ const ResetPassword = () => {
 
       setTimeout(() => {
         dispatch(setError(''));
-        navigate('/login', {replace:true});
+        navigate('/login', {replace:true})
       }, 1000);
     } catch (error) {
       console.error('Error resetting password:', error);

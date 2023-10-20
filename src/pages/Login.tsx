@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './styles/Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
-import fetchRequest from '../api/fetchRequestAPI';
 import { useLoginMutation } from '../api/authAPI';
 
 function Login() {
@@ -17,23 +16,14 @@ function Login() {
       return;
     }
 
-    try {
-      const response = await fetchRequest(
-        `${process.env.REACT_APP_LOGIN_TOKEN_ENDPOINT}`,
-        {
-          body: JSON.stringify({
-            email: username,
-            password,
-          }),
-          method: 'POST',
-        }
-      );
-      console.log(response);
-      localStorage.setItem('authToken', response.access_token);
+    const response = await login({ email: username, password });
+    if ('data' in response) {
+      localStorage.setItem('authToken', response.data.access_token);
       navigate('/', { replace: true });
-    } catch (e) {
-      setError('login details wrong');
     }
+      setError('Login details are incorrect');
+      return;
+
   };
 
   return (

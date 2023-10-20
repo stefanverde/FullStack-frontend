@@ -12,13 +12,13 @@ export const authApi = createApi({
           url: '/login',
           method: 'POST',
           body:{
-            email: body,
-            password: body
+            email: body.email,
+            password: body.password
           }
         };
       },
     }),
   }),
 });
-
+console.log('authApi',authApi);
 export const { useLoginMutation } = authApi;

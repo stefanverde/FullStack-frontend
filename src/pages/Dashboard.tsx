@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import ProfilePicture from '../components/ProfilePicture';
 import { useUserDetailsQuery } from '../api/userAPI';
 
-const Home: React.FC = () => {
+const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
   const authToken = localStorage.getItem('authToken');
@@ -48,4 +48,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

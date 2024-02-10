@@ -59,7 +59,7 @@ function Login() {
           </Button>
         </RowItem>
         <TextButton>
-          <Link to="/forgotPassword">Forgot Password ??</Link>
+          <Link to="/forgotPassword">Forgot Password ?</Link>
         </TextButton>
       </LoginModal>
       <button>

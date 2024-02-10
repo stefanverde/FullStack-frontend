@@ -3,6 +3,7 @@ import './styles/Home.css';
 import React, { useState } from 'react';
 import ProfilePicture from '../components/ProfilePicture';
 import { useUserDetailsQuery } from '../api/userAPI';
+import {observer} from "mobx-react";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    navigate('/login', { replace: true });
+    navigate('/', { replace: true });
   };
 
   const handlerModalToggle = () => {
@@ -48,4 +49,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default observer(Dashboard);

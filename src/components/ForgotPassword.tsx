@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../pages/styles/Login.css';
 import './styles/ForgotPassword.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/features/userSlice';
@@ -17,19 +16,14 @@ const ForgotPassword = () => {
   const responseHandler = async () => {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail) {
-      dispatch(
-        setError('Invalid email format. Please enter a valid email address.')
-      );
+      dispatch(setError('Invalid email format. Please enter a valid email address.'));
       return;
     }
-    
+
     sendMail(email);
-    
 
     setResponse(false);
-    setMessage(
-      'If the e-mail exists, you will receive a message with your password '
-    );
+    setMessage('If the e-mail exists, you will receive a message with your password ');
     dispatch(setError(''));
     setTimeout(() => {
       navigate('/login', { replace: true });
@@ -37,25 +31,24 @@ const ForgotPassword = () => {
   };
   return (
     <div>
-      <div className='backimage'>
-        <div className='forgottenP-modal'>
+      <div className="backimage">
+        <div className="forgottenP-modal">
           {response ? (
-            <div className='content'>
+            <div className="content">
               <input
                 required
-                className='username'
-                type='text'
-                placeholder='Email@email.com'
+                className="username"
+                type="text"
+                placeholder="Email@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}></input>
-              <button
-                className='forgottenButton'
-                onClick={responseHandler}>
+                onChange={e => setEmail(e.target.value)}
+              ></input>
+              <button className="forgottenButton" onClick={responseHandler}>
                 Retrieve Password
               </button>
               {error && <div style={{ color: 'red' }}>{error}</div>}
-              <button className='forgottenToMain'>
-                <Link to='/login'>Back &rarr;</Link>
+              <button className="forgottenToMain">
+                <Link to="/login">Back &rarr;</Link>
               </button>
             </div>
           ) : (
@@ -64,7 +57,8 @@ const ForgotPassword = () => {
                 color: 'green',
                 textAlign: 'center',
                 marginTop: '20px',
-              }}>
+              }}
+            >
               {message} &#10003;
             </div>
           )}

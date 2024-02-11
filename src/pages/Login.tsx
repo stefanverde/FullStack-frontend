@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 
 import { useLoginMutation } from '../api/authAPI';
 
-import { Button, linkStyle, Modal, RowItem, TextButton } from './StyledComponents';
+import { Button, Modal, RowItem, TextButton } from './StyledComponents';
 import { ColoredButton } from '../components/StyledComponents';
 
 function Login() {
@@ -27,6 +27,10 @@ function Login() {
     }
     setError('Login details are incorrect');
     return;
+  };
+
+  const handleButtonClick = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -52,20 +56,14 @@ function Login() {
         {error && <p style={{ color: 'red', display: 'flex', alignSelf: 'center' }}>{error}</p>}
         <RowItem>
           <Button onClick={loginHandler}>Login</Button>
-          <Button>
-            <Link to="/register" style={linkStyle}>
-              Register
-            </Link>
-          </Button>
+          <Button onClick={() => handleButtonClick('/register')}>Register</Button>
         </RowItem>
         <TextButton>
           <Link to="/forgotPassword">Forgot Password ?</Link>
         </TextButton>
       </Modal>
-      <ColoredButton style={{ padding: '10px 20px' }}>
-        <Link to="/shop" style={linkStyle}>
-          Shop
-        </Link>
+      <ColoredButton style={{ padding: '10px 20px' }} onClick={() => handleButtonClick('/register')}>
+        Shop
       </ColoredButton>
     </div>
   );

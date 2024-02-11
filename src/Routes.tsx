@@ -6,7 +6,7 @@ import ForgotPassword from './components/ForgotPassword';
 import RegistrationForm from './components/RegistrationForm';
 import ResetPassword from './components/ResetPassword';
 import Shop from './pages/Shop';
-import Home from "./pages/Home";
+import Home from './pages/Home';
 
 interface PrivateElementProps {
   element: React.ComponentType;
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/resetPassword',
-    element: <ResetPassword />,
+    element: <PrivateElement element={ResetPassword} />,
   },
   {
     path: '/shop',

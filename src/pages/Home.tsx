@@ -1,12 +1,8 @@
-import {observer} from "mobx-react";
-import React from "react";
+import { observer } from 'mobx-react';
+import React from 'react';
 
-const Home =() => {
-    return (
-        <div className='backimage'>
-            <div>home page</div>
-        </div>
-    );
-}
+const Home = () => {
+  return <div>home page</div>;
+};
 
 export default observer(Home);

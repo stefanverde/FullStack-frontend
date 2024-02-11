@@ -5,20 +5,19 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_AUTH_API_URL,
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     login: builder.mutation({
-      query: (body) => {
+      query: body => {
         return {
           url: '/login',
           method: 'POST',
-          body:{
+          body: {
             email: body.email,
-            password: body.password
-          }
+            password: body.password,
+          },
         };
       },
     }),
   }),
 });
-console.log('authApi',authApi);
 export const { useLoginMutation } = authApi;

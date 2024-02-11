@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-export const linkStyle = {
-  color: 'black',
-  textDecoration: 'none',
-};
+//difference between Button and TextButton is the border
 export const Button = styled.button`
   position: relative;
   left: 20%;
@@ -15,10 +12,6 @@ export const Button = styled.button`
   font-weight: 250;
   font-size: 18px;
   cursor: pointer;
-`;
-export const TextButton = styled.button`
-  background-color: whitesmoke;
-  border: none;
 `;
 export const Modal = styled.div`
   position: absolute;

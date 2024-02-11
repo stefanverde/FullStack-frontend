@@ -1,13 +1,8 @@
-import {observer} from "mobx-react";
-import React from "react";
+import { observer } from 'mobx-react';
+import React from 'react';
 
 const Shop = () => {
-
-    return (
-        <div className='backimage'>
-        <div>hello</div>
-        </div>
-    );
-}
+  return <div>shop</div>;
+};
 
 export default observer(Shop);

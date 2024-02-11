@@ -8,7 +8,7 @@ import { useAddUserMutation, userApi } from '../api/userAPI';
 import { RootState } from '../redux/store';
 
 import '../assets/Global.css';
-import { BackToMain, ColoredButton } from './StyledComponents';
+import { TextButton, ColoredButton } from './StyledComponents';
 import { Modal } from '../pages/StyledComponents';
 
 function RegistrationForm() {
@@ -123,11 +123,11 @@ function RegistrationForm() {
         />
         {error && <div style={{ color: 'red' }}>{error}</div>}
         <ColoredButton onClick={event => submitForm(event)}>Submit Registration</ColoredButton>
-        <BackToMain>
+        <TextButton>
           <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
             Back to Login. &rarr;
           </Link>
-        </BackToMain>
+        </TextButton>
       </Modal>
     </div>
   );

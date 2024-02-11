@@ -7,7 +7,7 @@ import { useSendMailMutation } from '../api/mailAPI';
 import TextField from '@mui/material/TextField';
 import { Modal } from '../pages/StyledComponents';
 import styled from 'styled-components';
-import { BackToMain, ColoredButton } from './StyledComponents';
+import { TextButton, ColoredButton } from './StyledComponents';
 
 const ColumnView = styled.div`
   display: flex;
@@ -49,13 +49,12 @@ const ForgotPassword = () => {
   return (
     <Modal>
       <ColumnView>
-        <BackToMain>
+        <TextButton>
           <Link to="/login">Back &rarr;</Link>
-        </BackToMain>
+        </TextButton>
         <TextField
           type="email"
           value={email}
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           onChange={e => setEmail(e.target.value)}

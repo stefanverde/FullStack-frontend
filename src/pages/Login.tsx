@@ -5,8 +5,8 @@ import TextField from '@mui/material/TextField';
 
 import { useLoginMutation } from '../api/authAPI';
 
-import { Button, Modal, RowItem, TextButton } from './StyledComponents';
-import { ColoredButton } from '../components/StyledComponents';
+import { Button, Modal, RowItem } from './StyledComponents';
+import { TextButton, ColoredButton } from '../components/StyledComponents';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -39,7 +39,6 @@ function Login() {
         <TextField
           type="email"
           value={username}
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           onChange={e => setUsername(e.target.value.trim())}
@@ -47,7 +46,6 @@ function Login() {
 
         <TextField
           type="password"
-          id="outlined-basic"
           label="Password"
           value={password}
           onChange={e => setPassword(e.target.value.trim())}
@@ -58,7 +56,7 @@ function Login() {
           <Button onClick={loginHandler}>Login</Button>
           <Button onClick={() => handleButtonClick('/register')}>Register</Button>
         </RowItem>
-        <TextButton>
+        <TextButton style={{ alignSelf: 'center' }}>
           <Link to="/forgotPassword">Forgot Password ?</Link>
         </TextButton>
       </Modal>

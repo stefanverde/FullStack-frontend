@@ -4,13 +4,16 @@ import { store } from './redux/store';
 import router from './Routes';
 import { RouterProvider } from 'react-router-dom';
 import { Fragment } from 'react';
+import BackgroundImage from './components/BackgroundImage';
 function App() {
   return (
-    <Fragment>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </Fragment>
+    <BackgroundImage>
+      <Fragment>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </Fragment>
+    </BackgroundImage>
   );
 }
 

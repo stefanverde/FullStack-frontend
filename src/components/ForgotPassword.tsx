@@ -5,6 +5,16 @@ import { setError } from '../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useSendMailMutation } from '../api/mailAPI';
+import TextField from '@mui/material/TextField';
+import { Modal } from '../pages/StyledComponents';
+import styled from 'styled-components';
+import { ColoredButton } from './StyledComponents';
+
+const ColumnView = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [response, setResponse] = useState(true);
@@ -30,41 +40,23 @@ const ForgotPassword = () => {
     }, 2000);
   };
   return (
-    <div>
-      <div className="backimage">
-        <div className="forgottenP-modal">
-          {response ? (
-            <div className="content">
-              <input
-                required
-                className="username"
-                type="text"
-                placeholder="Email@email.com"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              ></input>
-              <button className="forgottenButton" onClick={responseHandler}>
-                Retrieve Password
-              </button>
-              {error && <div style={{ color: 'red' }}>{error}</div>}
-              <button className="forgottenToMain">
-                <Link to="/login">Back &rarr;</Link>
-              </button>
-            </div>
-          ) : (
-            <div
-              style={{
-                color: 'green',
-                textAlign: 'center',
-                marginTop: '20px',
-              }}
-            >
-              {message} &#10003;
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <Modal>
+      <ColumnView>
+        <button className="forgottenToMain">
+          <Link to="/login">Back &rarr;</Link>
+        </button>
+        <TextField
+          type="email"
+          value={email}
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          onChange={e => setEmail(e.target.value)}
+        />
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        <ColoredButton onClick={responseHandler}>Retrieve Password</ColoredButton>
+      </ColumnView>
+    </Modal>
   );
 };
 export default ForgotPassword;

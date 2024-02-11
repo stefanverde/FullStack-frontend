@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
-export const SubmitButton = styled.button`
+export const ColoredButton = styled.button`
   position: relative;
-  height: fit-content;
+
   width: fit-content;
   border-radius: 20px;
   background-color: lightblue;
   font-weight: 300;
-  padding: 15px;
+  padding: 10px;
   font-size: 16px;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  left: 15%;
+  display: flex;
+  align-self: center;
   cursor: pointer;
 `;
 
@@ -32,12 +33,12 @@ export const RegistrationModal = styled.div`
 
 export const BackToMain = styled.button`
   position: relative;
-  height: fit-content;
   width: fit-content;
   border: none;
   background-color: whitesmoke;
   font-weight: 300;
   font-size: 18px;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  left: 35%;
+  display: flex;
+  align-self: flex-end;
 `;

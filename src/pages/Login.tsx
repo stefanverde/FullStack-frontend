@@ -5,7 +5,8 @@ import TextField from '@mui/material/TextField';
 
 import { useLoginMutation } from '../api/authAPI';
 
-import { Button, linkStyle, LoginModal, RowItem, TextButton } from './StyledComponents';
+import { Button, linkStyle, Modal, RowItem, TextButton } from './StyledComponents';
+import { ColoredButton } from '../components/StyledComponents';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -30,7 +31,7 @@ function Login() {
 
   return (
     <div className="backimage">
-      <LoginModal>
+      <Modal>
         <TextField
           type="email"
           value={username}
@@ -49,7 +50,7 @@ function Login() {
           required={true}
         />
 
-        {error && <p>{error}</p>}
+        {error && <p style={{ color: 'red', display: 'flex', alignSelf: 'center' }}>{error}</p>}
         <RowItem>
           <Button onClick={loginHandler}>Login</Button>
           <Button>
@@ -61,12 +62,12 @@ function Login() {
         <TextButton>
           <Link to="/forgotPassword">Forgot Password ?</Link>
         </TextButton>
-      </LoginModal>
-      <button>
+      </Modal>
+      <ColoredButton style={{ padding: '10px 20px' }}>
         <Link to="/shop" style={linkStyle}>
           Shop
         </Link>
-      </button>
+      </ColoredButton>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,17 +8,35 @@ import { useAddUserMutation, userApi } from '../api/userAPI';
 import { RootState } from '../redux/store';
 
 import '../assets/Global.css';
-import { BackToMain, RegistrationModal, SubmitButton } from './StyledComponents';
+import { BackToMain, ColoredButton } from './StyledComponents';
+import { Modal } from '../pages/StyledComponents';
 
 function RegistrationForm() {
-  const formData = useSelector((state: RootState) => state.user.formData);
+  // const formData = useSelector((state: RootState) => state.user.formData);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    repeatPassword: '',
+  });
   const error = useSelector((state: RootState) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [trigger] = userApi.endpoints.checkExistingMail.useLazyQuery();
   const [addUser] = useAddUserMutation();
-  const handleInputChange = (e: any) => {
+  // const handleInputChange = (e: any) => {
+  //   const { name, value } = e.target;
+  //   dispatch(updateUser({ ...formData, [name]: value }));
+  // };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    // Update local component state
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+
     dispatch(updateUser({ ...formData, [name]: value }));
   };
 
@@ -80,11 +98,10 @@ function RegistrationForm() {
 
   return (
     <div className="backimage">
-      <RegistrationModal>
+      <Modal>
         <TextField
           type="text"
           value={formData.firstName}
-          id="outlined-basic"
           label="First Name"
           variant="outlined"
           onChange={handleInputChange}
@@ -92,7 +109,6 @@ function RegistrationForm() {
         <TextField
           type="text"
           value={formData.lastName}
-          id="outlined-basic"
           label="Last Name"
           variant="outlined"
           onChange={handleInputChange}
@@ -100,37 +116,33 @@ function RegistrationForm() {
         <TextField
           type="email"
           value={formData.email}
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           onChange={handleInputChange}
         ></TextField>
         <TextField
           type="password"
-          id="outlined-basic"
           label="Password"
           value={formData.password}
           onChange={handlePasswordChange}
           required={true}
         />
         <TextField
-          // size="small"
           type="password"
-          id="outlined-basic"
           label="Repeat Password"
           value={formData.repeatPassword}
           onChange={handleRepeatPasswordChange}
           required={true}
         />
         {error && <div style={{ color: 'red' }}>{error}</div>}
-        <SubmitButton onClick={event => submitForm(event)}>Submit Registration</SubmitButton>
+        <ColoredButton onClick={event => submitForm(event)}>Submit Registration</ColoredButton>
 
         <BackToMain>
           <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
             Back to Login. &rarr;
           </Link>
         </BackToMain>
-      </RegistrationModal>
+      </Modal>
     </div>
   );
 }

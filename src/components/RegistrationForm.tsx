@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,31 +12,15 @@ import { BackToMain, ColoredButton } from './StyledComponents';
 import { Modal } from '../pages/StyledComponents';
 
 function RegistrationForm() {
-  // const formData = useSelector((state: RootState) => state.user.formData);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    repeatPassword: '',
-  });
+  const formData = useSelector((state: RootState) => state.user.formData);
   const error = useSelector((state: RootState) => state.user.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [trigger] = userApi.endpoints.checkExistingMail.useLazyQuery();
   const [addUser] = useAddUserMutation();
-  // const handleInputChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   dispatch(updateUser({ ...formData, [name]: value }));
-  // };
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const location = useLocation();
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    // Update local component state
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-
     dispatch(updateUser({ ...formData, [name]: value }));
   };
 
@@ -96,6 +80,13 @@ function RegistrationForm() {
     }
   };
 
+  useEffect(() => {
+    if (location.pathname !== '/login') {
+      dispatch(setError(''));
+      dispatch(resetFormData());
+    }
+  }, [location.pathname, dispatch]);
+
   return (
     <div className="backimage">
       <Modal>
@@ -103,12 +94,14 @@ function RegistrationForm() {
           type="text"
           value={formData.firstName}
           label="First Name"
+          name="firstName"
           variant="outlined"
           onChange={handleInputChange}
         ></TextField>
         <TextField
           type="text"
           value={formData.lastName}
+          name="lastName"
           label="Last Name"
           variant="outlined"
           onChange={handleInputChange}
@@ -117,26 +110,19 @@ function RegistrationForm() {
           type="email"
           value={formData.email}
           label="Email"
+          name="email"
           variant="outlined"
           onChange={handleInputChange}
         ></TextField>
-        <TextField
-          type="password"
-          label="Password"
-          value={formData.password}
-          onChange={handlePasswordChange}
-          required={true}
-        />
+        <TextField type="password" label="Password" value={formData.password} onChange={handlePasswordChange} />
         <TextField
           type="password"
           label="Repeat Password"
           value={formData.repeatPassword}
           onChange={handleRepeatPasswordChange}
-          required={true}
         />
         {error && <div style={{ color: 'red' }}>{error}</div>}
         <ColoredButton onClick={event => submitForm(event)}>Submit Registration</ColoredButton>
-
         <BackToMain>
           <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
             Back to Login. &rarr;

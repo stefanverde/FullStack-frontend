@@ -47,7 +47,6 @@ function Login() {
           label="Password"
           value={password}
           onChange={e => setPassword(e.target.value.trim())}
-          required={true}
         />
 
         {error && <p style={{ color: 'red', display: 'flex', alignSelf: 'center' }}>{error}</p>}

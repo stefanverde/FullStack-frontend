@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/ForgotPassword.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,6 +23,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [sendMail] = useSendMailMutation();
+  const location = useLocation();
   const responseHandler = async () => {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail) {
@@ -39,6 +40,13 @@ const ForgotPassword = () => {
       navigate('/login', { replace: true });
     }, 2000);
   };
+
+  useEffect(() => {
+    if (location.pathname !== '/login') {
+      dispatch(setError(''));
+    }
+  }, [location.pathname, dispatch]);
+
   return (
     <Modal>
       <ColumnView>

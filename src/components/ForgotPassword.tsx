@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './styles/ForgotPassword.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { setError } from '../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +7,7 @@ import { useSendMailMutation } from '../api/mailAPI';
 import TextField from '@mui/material/TextField';
 import { Modal } from '../pages/StyledComponents';
 import styled from 'styled-components';
-import { ColoredButton } from './StyledComponents';
+import { BackToMain, ColoredButton } from './StyledComponents';
 
 const ColumnView = styled.div`
   display: flex;
@@ -50,9 +49,9 @@ const ForgotPassword = () => {
   return (
     <Modal>
       <ColumnView>
-        <button className="forgottenToMain">
+        <BackToMain>
           <Link to="/login">Back &rarr;</Link>
-        </button>
+        </BackToMain>
         <TextField
           type="email"
           value={email}

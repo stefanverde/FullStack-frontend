@@ -1,4 +1,3 @@
-import { keyframes } from '@emotion/react';
 import styled from 'styled-components';
 
 export const linkStyle = {

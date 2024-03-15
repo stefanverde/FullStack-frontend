@@ -13,16 +13,14 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [resetPass] = useResetPasswordMutation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
 
   const resetPassword = async () => {
     const passSpecialChar = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!passSpecialChar || newPassword.length < 6) {
-      dispatch(
-        setError('Passwords too short or do not contain a special character')
-      );
+      dispatch(setError('Passwords too short or do not contain a special character'));
       return;
     }
     if (newPassword !== password) {
@@ -36,43 +34,37 @@ const ResetPassword = () => {
 
       setTimeout(() => {
         dispatch(setError(''));
-        navigate('/login', {replace:true})
+        navigate('/login', { replace: true });
       }, 1000);
     } catch (error) {
       console.error('Error resetting password:', error);
     }
   };
   return (
-    <div className='backimage'>
-      <div className='resetModal'>
+    <div className="backimage">
+      <div className="resetModal">
         {isValid ? (
-          <div className='passwordConfirmed'>
-            Password Changed Successfully &#10003;
-          </div>
+          <div className="passwordConfirmed">Password Changed Successfully &#10003;</div>
         ) : (
           <div>
             <input
-              className='newPassword'
-              type='password'
-              placeholder='New Password'
+              className="newPassword"
+              type="password"
+              placeholder="New Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
             <input
-              className='newPassword'
-              type='password'
-              placeholder='Confirm New Password'
+              className="newPassword"
+              type="password"
+              placeholder="Confirm New Password"
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={e => setNewPassword(e.target.value)}
             />
-            <button
-              className='submitReset'
-              onClick={resetPassword}>
+            <button className="submitReset" onClick={resetPassword}>
               Submit
             </button>
-            {error && (
-              <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
-            )}
+            {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
           </div>
         )}
       </div>

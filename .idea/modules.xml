@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FullStack-Frontend.iml" filepath="$PROJECT_DIR$/.idea/FullStack-Frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/fullproject.iml" filepath="$PROJECT_DIR$/.idea/fullproject.iml" />
     </modules>
   </component>
 </project>

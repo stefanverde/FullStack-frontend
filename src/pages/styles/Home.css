@@ -42,10 +42,10 @@
 
 .dashboardLogout {
   position: absolute;
-  left: 80%;
+  right:2%;
   top: 2%;
-  height: 40px;
-  width: 120px;
+  padding:8px 16px;
+  width: fit-content;
   border-radius: 30px;
   font-family: 'Times New Roman', Times, serif;
   font-weight: 250;

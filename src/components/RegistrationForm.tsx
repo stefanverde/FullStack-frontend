@@ -1,15 +1,15 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../assets/Global.css';
-import './styles/RegistrationForm.css';
+import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  updateUser,
-  setError,
-  resetFormData,
-} from '../redux/features/userSlice';
+
+import { updateUser, setError, resetFormData } from '../redux/features/userSlice';
 import { useAddUserMutation, userApi } from '../api/userAPI';
 import { RootState } from '../redux/store';
+
+import '../assets/Global.css';
+import { TextButton, ColoredButton } from './StyledComponents';
+import { Modal } from '../pages/StyledComponents';
 
 function RegistrationForm() {
   const formData = useSelector((state: RootState) => state.user.formData);
@@ -18,6 +18,7 @@ function RegistrationForm() {
   const navigate = useNavigate();
   const [trigger] = userApi.endpoints.checkExistingMail.useLazyQuery();
   const [addUser] = useAddUserMutation();
+  const location = useLocation();
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     dispatch(updateUser({ ...formData, [name]: value }));
@@ -29,11 +30,7 @@ function RegistrationForm() {
     const containsSpecialCharacter = /[!@#$%^&;<>.?~]/.test(newPassword);
 
     if (!containsNumber || !containsSpecialCharacter) {
-      dispatch(
-        setError(
-          'Password must contain at least one number and one special character.'
-        )
-      );
+      dispatch(setError('Password must contain at least one number and one special character.'));
     } else {
       dispatch(setError(''));
     }
@@ -47,7 +44,6 @@ function RegistrationForm() {
   };
 
   const submitForm = async (e: any) => {
-    
     const resTrigger = await trigger(formData.email);
     console.log('>>>>>>>>>', resTrigger);
     const emailExists = !!resTrigger.data;
@@ -67,85 +63,72 @@ function RegistrationForm() {
     }
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
     if (!isValidEmail) {
-      dispatch(
-        setError('Invalid email format. Please enter a valid email address.')
-      );
+      dispatch(setError('Invalid email format. Please enter a valid email address.'));
       return;
     }
 
     if (emailExists) {
       dispatch(setError('email exists'));
       return;
-    }
-    else{
+    } else {
       dispatch(setError(''));
-      const {repeatPassword,...userData} = formData;
+      const { repeatPassword, ...userData } = formData;
       addUser(userData);
 
       dispatch(resetFormData());
       navigate('/login', { replace: true });
     }
-    
   };
 
+  useEffect(() => {
+    if (location.pathname !== '/login') {
+      dispatch(setError(''));
+      dispatch(resetFormData());
+    }
+  }, [location.pathname, dispatch]);
+
   return (
-    <div className='backimage'>
-      <div className='registration-modal'>
-        <input
-          className='username'
-          type='text'
-          placeholder='First Name'
-          name='firstName'
+    <div className="backimage">
+      <Modal>
+        <TextField
+          type="text"
           value={formData.firstName}
+          label="First Name"
+          name="firstName"
+          variant="outlined"
           onChange={handleInputChange}
-        />
-        <input
-          className='username'
-          type='text'
-          placeholder='Last Name'
-          name='lastName'
+        ></TextField>
+        <TextField
+          type="text"
           value={formData.lastName}
+          name="lastName"
+          label="Last Name"
+          variant="outlined"
           onChange={handleInputChange}
-        />
-        <input
-          className='username'
-          type='email'
-          placeholder='Email@email.com'
-          name='email'
+        ></TextField>
+        <TextField
+          type="email"
           value={formData.email}
+          label="Email"
+          name="email"
+          variant="outlined"
           onChange={handleInputChange}
-        />
-        <input
-          className='password'
-          type='password'
-          placeholder='Password'
-          value={formData.password}
-          onChange={handlePasswordChange}
-        />
-        <input
-          className='password'
-          type='password'
-          placeholder='Repeat Password'
+        ></TextField>
+        <TextField type="password" label="Password" value={formData.password} onChange={handlePasswordChange} />
+        <TextField
+          type="password"
+          label="Repeat Password"
           value={formData.repeatPassword}
           onChange={handleRepeatPasswordChange}
         />
-
-        <button
-          className='submit'
-          onClick={(event) => submitForm(event)}>
-          Submit Registration
-        </button>
-
-        <button className='toMain'>
-          <Link
-            to='/login'
-            style={{ textDecoration: 'none', color: 'black' }}>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        <ColoredButton onClick={event => submitForm(event)}>Submit Registration</ColoredButton>
+        <TextButton>
+          <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
             Back to Login. &rarr;
           </Link>
-        </button>
-
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-      </div>
+        </TextButton>
+      </Modal>
     </div>
   );
 }

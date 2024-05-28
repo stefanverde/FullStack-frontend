@@ -16,8 +16,6 @@ const ColumnView = styled.div`
 `;
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [response, setResponse] = useState(true);
-  const [message, setMessage] = useState('');
   const error = useSelector((state: any) => state.user.error);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,8 +30,6 @@ const ForgotPassword = () => {
 
     sendMail(email);
 
-    setResponse(false);
-    setMessage('If the e-mail exists, you will receive a message with your password ');
     dispatch(setError(''));
     setTimeout(() => {
       navigate('/login', { replace: true });

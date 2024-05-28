@@ -1,0 +1,19 @@
+name: Integration
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test_pull_requests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4.1.3
+      - uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18.16.1
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+#TODO: just need to commit this to the master branch, and then test it by making changes

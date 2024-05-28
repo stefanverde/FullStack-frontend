@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import Dropdown from './Dropdown';
+import NavigationBar from './NavigationBar';
 
 const Shop = () => {
-  const options = ['value1', 'value2', 'value3'];
   return (
     <div>
-      shop
-      <Dropdown options={options} />
+      <NavigationBar />
     </div>
   );
 };

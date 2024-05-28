@@ -26,6 +26,7 @@ function Login() {
       navigate('/dashboard', { replace: true });
     }
     setError('Login details are incorrect');
+
     return;
   };
 

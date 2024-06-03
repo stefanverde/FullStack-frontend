@@ -8,7 +8,7 @@ import { useAddUserMutation, userApi } from '../api/userAPI';
 import { RootState } from '../redux/store';
 
 import '../assets/Global.css';
-import { TextButton, ColoredButton } from './StyledComponents';
+import { TextButton, ColoredButton } from './styles/StyledComponents';
 import { Modal } from '../pages/StyledComponents';
 
 function RegistrationForm() {

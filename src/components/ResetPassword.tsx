@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setError } from '../redux/features/userSlice';
 import { useResetPasswordMutation } from '../api/userAPI';
+import TextField from '@mui/material/TextField';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -46,20 +47,18 @@ const ResetPassword = () => {
         {isValid ? (
           <div className="passwordConfirmed">Password Changed Successfully &#10003;</div>
         ) : (
-          <div>
-            <input
-              className="newPassword"
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <TextField
               type="password"
-              placeholder="New Password"
+              label="Noua Parola"
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-            <input
-              className="newPassword"
+            <TextField
               type="password"
-              placeholder="Confirm New Password"
+              label="Confirma Noua Parola"
               value={newPassword}
-              onChange={e => setNewPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
             <button className="submitReset" onClick={resetPassword}>
               Submit

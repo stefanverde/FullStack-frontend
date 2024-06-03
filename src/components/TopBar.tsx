@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextButton, ColoredButton } from '../components/StyledComponents';
+import { TextButton, ColoredButton } from './styles/StyledComponents';
 
 const TopBar = () => {
   const navigate = useNavigate();

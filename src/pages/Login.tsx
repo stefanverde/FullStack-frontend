@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { useLoginMutation } from '../api/authAPI';
 
 import { Button, Modal, RowItem } from './StyledComponents';
-import { TextButton, ColoredButton } from '../components/StyledComponents';
+import { TextButton, ColoredButton } from '../components/styles/StyledComponents';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -61,8 +61,8 @@ function Login() {
           <Link to="/forgotPassword">Forgot Password ?</Link>
         </TextButton>
       </Modal>
-      <ColoredButton style={{ padding: '10px 20px' }} onClick={() => handleButtonClick('/register')}>
-        Shop
+      <ColoredButton style={{ padding: '10px 20px' }} onClick={() => handleButtonClick('/')}>
+        Inapoi la prima pagina
       </ColoredButton>
     </div>
   );

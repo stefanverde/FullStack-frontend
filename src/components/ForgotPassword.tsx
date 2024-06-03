@@ -7,7 +7,7 @@ import { useSendMailMutation } from '../api/mailAPI';
 import TextField from '@mui/material/TextField';
 import { Modal } from '../pages/StyledComponents';
 import styled from 'styled-components';
-import { TextButton, ColoredButton } from './StyledComponents';
+import { TextButton, ColoredButton } from './styles/StyledComponents';
 
 const ColumnView = styled.div`
   display: flex;

@@ -10,7 +10,7 @@ export const LinkStyle = {
   display: 'flex',
   fontWeight: 500,
   fontSize: '20px',
-  color: `green`,
+  color: `greenyellow`,
   textDecoration: 'unset',
   alignSelf: 'center',
   padding: '20px',

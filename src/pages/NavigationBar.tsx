@@ -1,19 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { LinkStyle } from '../components/LandingTopBar';
 
-export const LinkStyle = {
-  display: 'flex',
-  fontWeight: 500,
-  fontSize: '20px',
-  color: `green`,
-  textDecoration: 'unset',
-  alignSelf: 'center',
-  padding: '20px',
-  cursor: 'pointer',
-  fontFamily: 'FixelText,sansSerif',
-  marginRight: '20px',
-};
 const NavigationBar = () => {
+  const location = useLocation();
+  const isMagazinBarbati = location.pathname.startsWith('/magazinBarbati');
   return (
     <nav
       style={{
@@ -23,21 +14,37 @@ const NavigationBar = () => {
         justifyContent: 'center',
       }}
     >
-      <Link to="/makeup" style={LinkStyle}>
-        Drumetie/Hiking
-      </Link>
-      <Link to="/skincare" style={LinkStyle}>
-        Incaltaminte
-      </Link>
-      <Link to="/parfumuri" style={LinkStyle}>
-        Imbracaminte
-      </Link>
-      <Link to="/baieCorp" style={LinkStyle}>
-        Pescuit (pt barbati)
-      </Link>
-      <Link to="/par" style={LinkStyle}>
-        Snowboard( pt femei)
-      </Link>
+      {isMagazinBarbati ? (
+        <>
+          <Link to="/magazinBarbati/drumetieHiking" style={LinkStyle}>
+            Drumetie/Hiking
+          </Link>
+          <Link to="/magazinBarbati/incaltaminte" style={LinkStyle}>
+            Incaltaminte
+          </Link>
+          <Link to="/magazinBarbati/imbracaminte" style={LinkStyle}>
+            Imbracaminte
+          </Link>
+          <Link to="/magazinBarbati/pescuit" style={LinkStyle}>
+            Pescuit
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link to="/magazinFemei/drumetieHiking" style={LinkStyle}>
+            Drumetie/Hiking
+          </Link>
+          <Link to="/magazinFemei/incaltaminte" style={LinkStyle}>
+            Incaltaminte
+          </Link>
+          <Link to="/magazinFemei/imbracaminte" style={LinkStyle}>
+            Imbracaminte
+          </Link>
+          <Link to="/magazinFemei/iarna" style={LinkStyle}>
+            Snowboard
+          </Link>
+        </>
+      )}
     </nav>
   );
 };

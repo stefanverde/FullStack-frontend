@@ -14,15 +14,15 @@ const LandingPageChoices = () => {
         justifyContent: 'space-evenly',
       }}
     >
-      <Link to="/makeup" style={LinkStyle}>
+      <Link to="/magazinFemei" style={LinkStyle}>
         Femei
       </Link>
-      <Link to="/skincare" style={LinkStyle}>
+      <Link to="/magazinBarbati" style={LinkStyle}>
         Barbati
       </Link>
 
       <SearchBar />
-      <Link to="/baieCorp" style={LinkStyle}>
+      <Link to="/contact" style={LinkStyle}>
         Contacteaza-ne
       </Link>
       {localStorage.getItem('authToken') ? (

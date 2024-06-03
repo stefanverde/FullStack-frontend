@@ -7,6 +7,14 @@ import RegistrationForm from './components/RegistrationForm';
 import ResetPassword from './components/ResetPassword';
 import Shop from './pages/Shop';
 import Home from './pages/Home';
+import Femei from './pages/magazin/Femei';
+import Barbati from './pages/magazin/Barbati';
+import DrumetieHiking from './pages/magazin/DrumetieHiking';
+import SportIarna from './pages/magazin/SportIarna';
+import Incaltaminte from './pages/magazin/Incaltaminte';
+import Imbracaminte from './pages/magazin/Imbracaminte';
+import Pescuit from './pages/magazin/Pescuit';
+import Contact from './pages/Contact';
 
 interface PrivateElementProps {
   element: React.ComponentType;
@@ -35,12 +43,56 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
+    path: '/contact',
+    element: <Contact />,
+  },
+  {
     path: '/resetPassword',
     element: <PrivateElement element={ResetPassword} />,
   },
   {
-    path: '/shop',
-    element: <Shop />,
+    path: '/magazinFemei',
+    element: <Femei />,
+    children: [
+      {
+        path: '/magazinFemei/drumetieHiking',
+        element: <DrumetieHiking />,
+      },
+      {
+        path: '/magazinFemei/incaltaminte',
+        element: <Incaltaminte />,
+      },
+      {
+        path: '/magazinFemei/imbracaminte',
+        element: <Imbracaminte />,
+      },
+      {
+        path: '/magazinFemei/iarna',
+        element: <SportIarna />,
+      },
+    ],
+  },
+  {
+    path: '/magazinBarbati',
+    element: <Barbati />,
+    children: [
+      {
+        path: '/magazinBarbati/pescuit',
+        element: <Pescuit />,
+      },
+      {
+        path: '/magazinBarbati/drumetieHiking',
+        element: <DrumetieHiking />,
+      },
+      {
+        path: '/magazinBarbati/incaltaminte',
+        element: <Incaltaminte />,
+      },
+      {
+        path: '/magazinBarbati/imbracaminte',
+        element: <Imbracaminte />,
+      },
+    ],
   },
 ]);
 

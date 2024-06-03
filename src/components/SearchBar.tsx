@@ -14,7 +14,6 @@ function SearchBar() {
     try {
       await fetch(`http://localhost:3001/item/byBrand/${brand}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
       });
       navigate(`/searchPage?brand=${brand}`);
     } catch (e) {}
@@ -29,7 +28,7 @@ function SearchBar() {
         width: 300,
         background: `unset`,
         boxShadow: 'unset',
-        border: '3px solid green',
+        border: '2px solid greenyellow',
         borderRadius: '50px',
       }}
     >

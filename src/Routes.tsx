@@ -5,7 +5,6 @@ import Dashboard from './pages/Dashboard';
 import ForgotPassword from './components/ForgotPassword';
 import RegistrationForm from './components/RegistrationForm';
 import ResetPassword from './components/ResetPassword';
-import Shop from './pages/Shop';
 import Home from './pages/Home';
 import Femei from './pages/magazin/Femei';
 import Barbati from './pages/magazin/Barbati';
@@ -15,6 +14,7 @@ import Incaltaminte from './pages/magazin/Incaltaminte';
 import Imbracaminte from './pages/magazin/Imbracaminte';
 import Pescuit from './pages/magazin/Pescuit';
 import Contact from './pages/Contact';
+import DrumetieHikingF from './pages/magazin/DrumetieHikingF';
 
 interface PrivateElementProps {
   element: React.ComponentType;

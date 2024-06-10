@@ -7,6 +7,7 @@ import { useLoginMutation } from '../api/authAPI';
 
 import { Button, Modal, RowItem } from './StyledComponents';
 import { TextButton, ColoredButton } from '../components/styles/StyledComponents';
+import { handleChangePath } from '../assets/functions';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -30,10 +31,6 @@ function Login() {
     return;
   };
 
-  const handleButtonClick = (path: string) => {
-    navigate(path);
-  };
-
   return (
     <div className="backimage">
       <Modal>
@@ -55,13 +52,13 @@ function Login() {
         {error && <p style={{ color: 'red', display: 'flex', alignSelf: 'center' }}>{error}</p>}
         <RowItem>
           <Button onClick={loginHandler}>Login</Button>
-          <Button onClick={() => handleButtonClick('/register')}>Register</Button>
+          <Button onClick={() => handleChangePath('/register', navigate)}>Register</Button>
         </RowItem>
         <TextButton style={{ alignSelf: 'center' }}>
           <Link to="/forgotPassword">Forgot Password ?</Link>
         </TextButton>
       </Modal>
-      <ColoredButton style={{ padding: '10px 20px' }} onClick={() => handleButtonClick('/')}>
+      <ColoredButton style={{ padding: '10px 20px' }} onClick={() => handleChangePath('/', navigate)}>
         Inapoi la prima pagina
       </ColoredButton>
     </div>
